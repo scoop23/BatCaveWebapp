@@ -1,22 +1,23 @@
 "use client"
 import React, { useEffect } from 'react'
-import ActionButton, { ActionButtonRef } from './ActionButton'
+import ActionButtons, { ActionButtonRef } from './ActionButtons'
 import { useRef } from 'react'
 
 const ActionButtonGroup = () => {
-  const myref = useRef<ActionButtonRef>(null)
-  const svgRefsArray = useRef<HTMLDivElement[]>([])
+  const buttonRefs = useRef<ActionButtonRef[] | null[]>([])
 
   useEffect(() => {
-    if(myref) {
-      console.log(myref.current);
+    if(buttonRefs) {
+      console.log(buttonRefs.current);
     }
   }, [])
 
   return (
-    <div className='action-button-group h-[200px]'>
-      
-      <ActionButton className='' fill='#783D18' ref={myref} />
+    <div className='action-button-group h-[120px] w-[500px]'>
+      <ActionButtons
+        ref={(el) => {buttonRefs.current[0] = el}}
+        fill="#783D18"
+      />
     </div>
   )
 }

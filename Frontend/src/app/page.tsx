@@ -6,7 +6,7 @@ export default function Home() {
   const randomNumber = 19;
 
   return (
-    <div> 
+    <div className=""> 
       <RandomNumber number1={randomNumber} />
     </div>
   )
