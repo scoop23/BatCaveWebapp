@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/Navigation/NavBar";
 import localFont from 'next/font/local';
-import video from ''
+
 
 
 const geistSans = Geist({
@@ -27,6 +27,10 @@ const InterFont = localFont({
   variable: '--font-inter', // optional, for CSS variable
 })
 
+const Cinzel = localFont({
+  src : "../../public/fonts/CinzelDecorative-Bold.ttf",
+  variable : '--font-Cinzel'
+})
 
 export default function RootLayout({
   children,
@@ -35,17 +39,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.className} antialiased`} style={{
-        height : "1000px"
+      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.className} ${Cinzel.variable} antialiased`} style={{
+        height : "1500px"
       }}>
-        <NavBar/>
+      <NavBar/>
       {/* Video */}
-      <video className="-z-1" src="/videos/backgroundVideo.mp4" autoPlay loop muted
-      style={{
-        minWidth : "100%",
-        minHeight : "100%",
-        filter : "blur(8px)"
-      }}/>
+      <video 
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10" 
+        src="/videos/backgroundVideo.mp4" 
+        autoPlay 
+        loop 
+        muted
+        style={{
+          filter: "blur(8px)"
+        }}
+      />
         {children}
       </body>
     </html>

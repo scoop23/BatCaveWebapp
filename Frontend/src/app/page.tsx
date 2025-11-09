@@ -1,15 +1,14 @@
 
-import Image from "next/image";
 import RandomNumber from "../components/RandomNumber";
-import video from '../../public/videos/backgroundVideo.mp4'
+import HomeSearch from "../components/SearchBar/HomeSearch";
 
 
 export default function Home() {
-  const randomNumber = 19;
 
   return (
-    <div className=""> 
-      <RandomNumber number1={randomNumber} />
+    <div className="home flex justify-center items-center w-full flex-col"> 
+      <HomeSearch />
+      <h1 className="font-(var(--font-Cinzel))">Explore Drinks</h1>
     </div>
   )
 }

@@ -7,14 +7,13 @@ import brandImage from '../../../public/icons/brandIcon.png'
 
 
 const NavBar : React.FC = () => {
-  
   return (
-    <div className='nav-bar-container flex justify-center p-4'>
-      <nav className='nav-bar bg-[#935935] max-w-[1500px] w-full rounded-[30px] shadow-2xl shadow-[var(--shadow-custom)] '>
-        <section className='navigation-section flex justify-between px-25 py-4 pb-5'>
+    <div className='nav-bar-container flex justify-center'>
+      <nav className='nav-bar bg-[#935935] max-w-[1500px] w-full rounded-[100px] shadow-2xl shadow-[var(--shadow-custom)] z-1 mt-1.5'>
+        <section className='navigation-section flex justify-between px-20 py-4 pb-5'>
           <div className={`logo flex items-center gap-10 font-extrabold text-[23px]`}>
             <div className='bg-[#754b31] rounded-[100px] shadow-[var(--shadow-custom)]'>
-              <Image src={brandImage} alt="BatCaveLogo" width={190} height={190}/>
+              <Image src={brandImage} alt="BatCaveLogo" width={120} height={120}/>
             </div>
             <div className={`text-[35px]`}>
               Cave Café.

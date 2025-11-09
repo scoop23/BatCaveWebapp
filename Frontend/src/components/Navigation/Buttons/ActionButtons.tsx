@@ -16,9 +16,9 @@ export interface ActionButtonProps {
 const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
   ({ className, fill, Ypos }, ref) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [open, setOpen] = useState(false)
-    const distance = 110; // px distance between buttons
-    const [isShrunk, setIsShrunk] = useState(false);
+    const [open, setOpen] = useState(true)
+    const distance = 120; // px distance between buttons
+    const [isShrunk, setIsShrunk] = useState(true);
 
     const mainButtonRef = useRef<HTMLDivElement>(null);
     useImperativeHandle(ref, () => ({
@@ -68,7 +68,7 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
     ))
 
     return (
-      <div className="goo-container-menu flex items-center justify-end py-12 px-10" style={{ position: "relative", top: Ypos ?? 0, filter : "url(#goo)" }} ref={containerRef}>
+      <div className="goo-container-menu flex items-center justify-end py-5 px-3" style={{ position: "relative", top: Ypos ?? 0, filter : "url(#goo)" }} ref={containerRef}>
         {/* Hidden SVG goo filter */}
         <svg style={{ position: "absolute", width: 0, height: 0 }}>
           <defs>

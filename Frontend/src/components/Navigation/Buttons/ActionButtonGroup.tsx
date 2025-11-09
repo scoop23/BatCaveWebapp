@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import ActionButtons, { ActionButtonRef } from './ActionButtons'
 import { useRef } from 'react'
 
-const ActionButtonGroup = () => {
+const ActionButtonGroup: React.FC = () => {
   const buttonRefs = useRef<ActionButtonRef[] | null[]>([])
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const ActionButtonGroup = () => {
   }, [])
 
   return (
-    <div className='action-button-group h-[120px] w-[500px] '>
+    <div className='action-button-group h-[120px] w-[500px]'>
       <ActionButtons
         ref={(el) => {buttonRefs.current[0] = el}}
         fill="#783D18"
