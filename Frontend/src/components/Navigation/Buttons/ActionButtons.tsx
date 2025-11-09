@@ -30,7 +30,7 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
 
     const buttons = navs.map((nav, i) => (
       <Link key={i} href={`/${nav.toLowerCase()}`} passHref>
-        <motion.a
+        <motion.div
           className={`action-button ${className}`}
           style={{
             filter: "url(#goo)",
@@ -63,7 +63,7 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
           }}
         >
           {nav}
-        </motion.a>
+        </motion.div>
       </Link>
     ))
 
@@ -127,7 +127,7 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
             />
             <motion.span
               className="hamburger-2 w-[30px] h-[3px] bg-amber-50"
-              animate={open ? { scaleX: 0 } : { scaleX: 1 }}
+              animate={open ? { height: 4, scaleX: 0 } : { scaleX: 1 }}
               transition={{ duration: 0.3 }}
             />
             <motion.span
