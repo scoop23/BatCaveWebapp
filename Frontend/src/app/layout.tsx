@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/Navigation/NavBar";
 import localFont from 'next/font/local';
+import video from ''
 
 
 const geistSans = Geist({
@@ -34,8 +35,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.className} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.className} antialiased`} style={{
+        height : "1000px"
+      }}>
         <NavBar/>
+      {/* Video */}
+      <video className="-z-1" src="/videos/backgroundVideo.mp4" autoPlay loop muted
+      style={{
+        minWidth : "100%",
+        minHeight : "100%",
+        filter : "blur(8px)"
+      }}/>
         {children}
       </body>
     </html>
