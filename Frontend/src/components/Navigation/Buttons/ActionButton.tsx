@@ -1,75 +1,81 @@
 "use client"
-import React, { forwardRef, useRef } from 'react'
-import { useEffect, useState, useImperativeHandle } from 'react'
+import React, { forwardRef, useRef, useImperativeHandle } from "react"
 
 export interface ActionButtonRef {
-  svg : HTMLDivElement | null,
-  ellipse : SVGEllipseElement | null
+  container: HTMLDivElement | null,
+  circle : HTMLDivElement | null
 }
 
 export interface ActionButtonProps {
-  className? : string,
-  noStroke? : boolean,
-  fill? : string,
-  Ypos? : number,
-  Icon? : React.ComponentType<{ size : number; clickAnimation : () => void }>;
+  className?: string
+  fill?: string
+  Ypos?: number
 }
 
 const ActionButton = forwardRef<ActionButtonRef, ActionButtonProps>(
-  ({ className , noStroke, fill , Ypos, Icon } , ref) => {
+  ({ className, fill, Ypos }, ref) => {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const circleDiv = useRef<HTMLDivElement>(null)
 
-  const svgRef = useRef<HTMLDivElement>(null) 
-  const CircleCxRef = useRef<SVGEllipseElement>(null)
+    useImperativeHandle(ref, () => ({
+      container: containerRef.current,
+      circle: circleDiv.current
+    }))
 
-  useImperativeHandle(ref , () => ({
-    svg : svgRef.current,
-    ellipse : CircleCxRef.current
-  }), [])
-
-  return (
-    <div
-        className={`action-button ${className}`}
-        ref={svgRef}
-        style={{ top: `${Ypos}px` }}
-      >
-        <svg className="group" width={80} height={90} viewBox="20 -10 80 75">
+    return (
+      <div style={{ position: "relative", top: Ypos ?? 0 }} ref={containerRef}>
+        {/* Hidden SVG defining the goo filter */}
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
           <defs>
-            <filter id="goo" height="300%" y="-100%">
+            <filter id="goo">
               <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
               <feColorMatrix
                 in="blur"
                 mode="matrix"
+                values="
+                  1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 20 -10
+                "
                 result="goo"
-                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 18 -7"
               />
-              <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
-              <feColorMatrix
-                in="shadow"
-                mode="matrix"
-                values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2"
-                result="shadow"
-              />
-              <feOffset in="shadow" dx="1" dy="3" result="shadow" />
-              <feBlend in2="shadow" in="goo" result="goo" />
-              <feBlend in2="goo" in="SourceGraphic" result="mix" />
+              <feBlend in="SourceGraphic" in2="goo" />
             </filter>
           </defs>
-
-          <g transform="translate(50,50)">
-            <g id="group1" filter="url(#goo)">
-              <ellipse ref={CircleCxRef} cx={10} rx={30} ry={30} fill={fill ?? '#444446'} />
-            </g>
-            {/* <g ref={likeButtonGroupRef} transform="translate(-2, -15)">
-              {Icon && <Icon size={24} clickAnimation={onLikeClick} />}
-            </g> */}
-          </g>
         </svg>
+
+        {/* Gooey divs */}
+        <div className="group-div-goo" style={{
+          filter : "url(#goo)"
+        }}>
+          <div
+            ref={circleDiv}
+            className={`action-button ${className}`}
+            style={{
+              filter: "url(#goo)",
+              width: 100,
+              height: 100,
+              borderRadius: "50%",
+              background: fill ?? "#444",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "white",
+              fontWeight: "bold",
+              cursor: "pointer",
+              position: "relative"
+            }}
+          >
+            Store
+          </div>
+          
+        </div>
       </div>
-  )
-})
+    )
+  }
+)
 
+ActionButton.displayName = "ActionButton"
 
-// Add this line to give it a display name
-ActionButton.displayName = "ActionButton";
-
-export default ActionButton;
+export default ActionButton

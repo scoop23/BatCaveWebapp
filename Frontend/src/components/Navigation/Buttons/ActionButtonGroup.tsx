@@ -5,6 +5,7 @@ import { useRef } from 'react'
 
 const ActionButtonGroup = () => {
   const myref = useRef<ActionButtonRef>(null)
+  const svgRefsArray = useRef<HTMLDivElement[]>([])
 
   useEffect(() => {
     if(myref) {
@@ -12,10 +13,10 @@ const ActionButtonGroup = () => {
     }
   }, [])
 
-
   return (
-    <div className='action-button-group'>
-      <ActionButton className='' fill='#ffffff' ref={myref} />
+    <div className='action-button-group h-[200px]'>
+      
+      <ActionButton className='' fill='#783D18' ref={myref} />
     </div>
   )
 }
