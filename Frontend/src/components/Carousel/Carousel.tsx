@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 
 export const data = [
@@ -44,6 +45,8 @@ export const data = [
 ];
 
 const Carousel : React.FC = () => {
+
+
   return (
     <div>
 
@@ -51,4 +54,4 @@ const Carousel : React.FC = () => {
   )
 }
 
-export default Carousel
+export default Carousel 

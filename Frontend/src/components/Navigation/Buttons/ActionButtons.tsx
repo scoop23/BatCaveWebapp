@@ -29,15 +29,15 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
 
 
     const buttons = navs.map((nav, i) => (
-      <Link key={i} href={`/${nav.toLowerCase()}`} passHref>
+      <Link className="" key={i} href={`/${nav.toLowerCase()}`} passHref>
         <motion.div
-          className={`action-button ${className}`}
+          className={`action-button button ${className}`}
           style={{
             filter: "url(#goo)",
             width: 80,
             height: 80,
             borderRadius: "50%",
-            background: fill ?? "#00bcd4",
+            background: fill,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -55,11 +55,15 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
             x: open ? (-distance) * (i + 1) : -10,
             scale: open ? 0.9 : 0.7,
           }}
-          transition={{
+          transition={{ // spring like animation
             type: "spring",
             stiffness: 200,
             damping: 30,
             delay: i * 0.05,
+          }}
+          whileHover={{
+            scale : 1.2,
+            transition : {type : "spring" , stiffness : 300, damping : 20}
           }}
         >
           {nav}
