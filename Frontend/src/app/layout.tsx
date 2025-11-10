@@ -36,8 +36,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.className} ${Cinzel.variable} antialiased py-5`} style={{
-        height : "1500px"
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.className} ${Cinzel.variable} antialiased`} style={{
+        // height : "1339px"
       }}>
       <NavBar/>
       {/* Video */}

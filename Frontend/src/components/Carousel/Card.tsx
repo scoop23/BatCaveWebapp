@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { ImageGallery, getImagePath} from "./ImageGallery";
+import { getImagePath} from "./ImageGallery";
 import { motion } from 'framer-motion'
 import { useRef } from "react";
 // export const data = [
@@ -92,6 +92,7 @@ const Card : React.FC<CardProps>=  React.memo( ({ data , dataIndex, slideHeight 
   const path = getImagePath(coverString);
   const { description , value } = data[dataIndex];
 
+  // animation variants for the children
   const overlayVariants = {
     initial: { opacity: 0 },
     hover: { opacity: 0.52 },

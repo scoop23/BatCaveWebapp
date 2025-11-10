@@ -15,13 +15,6 @@ const Carousel : React.FC<CarouselProps> = ({ parentWidth }) => {
   // uses react-stacked-center-carousel by BotDanny thanks
   const carouselRef = useRef<StackedCarousel | undefined>(undefined);
 
-  useEffect(() => {
-    // if(carouselRef) {
-    //   console.log(carouselRef.current);
-    // }
-    console.log(parentWidth)
-  }, [])
-
   return (
     <div style={{ width : "100%", position : "relative" }}>
       <ResponsiveContainer
@@ -76,7 +69,7 @@ const Carousel : React.FC<CarouselProps> = ({ parentWidth }) => {
           zIndex : "10",
           borderRadius : "50px"
         }} onClick={() => {
-          carouselRef.current?.goNext(6)
+          carouselRef.current?.goNext()
         }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" />
