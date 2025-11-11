@@ -11,15 +11,7 @@ const MainMenu : React.FC<MainMenuProps> = ({ data }) => {
   console.log(data[0].cover)
   return (
     <div className='menu'>
-      <h1 className='absolute z-1'>Category</h1>
-      <section className='relative w-[1000px] h-[630px] grid grid-cols-2 p-4' style={{ backgroundColor : "var(--color-coffee-dark)", borderRadius : "20px", boxShadow : "var(--shadow-custom)"}}>
-        
-        {/* <MenuCard />
-        <MenuCard />
-        <MenuCard />
-        <MenuCard />
-        <MenuCard />
-        <MenuCard /> */}
+      <section className='relative w-full h-full grid grid-cols-2 p-7 gap-4 overflow-auto' style={{ backgroundColor : "var(--color-coffee-dark)", borderRadius : "20px", boxShadow : "var(--shadow-custom)"}}>
         {
           data.map((d , i) => {
             const coverPath = getImagePath(d.cover)

@@ -3,16 +3,22 @@ import MenuSideBar from '@/src/components/Menu/MenuSideBar'
 import Section from '@/src/components/Section'
 import React from 'react'
 import { coffeeProducts } from '@/src/components/Carousel/Card'
+import { dummyCategories } from '@/src/components/Menu/MenuSideBar'
+
 
 const Menu : React.FC = () => {
   return (
-    <div className='menu-container w-full'>
+    <div className='menu-container w-full relative'>
       <Section isAnimated={false}
       style={{ display : "flex" , flexDirection : "row", gap : "30px", justifyContent : "center", marginTop : "70px"}}>
+
         <div className='menu-sidebar h-full'>
           {/* sidbar component */}
-          <MenuSideBar /> {/* for visualization only */}
+          <MenuSideBar categories={dummyCategories} /> {/* for visualization only */}
         </div>
+
+        <h1 className='absolute z-1 p-4 w-[210px]'
+        style={{ backgroundColor : "var(--color-coffee-medium)", top: "-40px", borderRadius : "25px"}}>Category</h1>
 
         <div className='main-menu h-full'>
           <MainMenu data={coffeeProducts}/> {/* for visualization only */}

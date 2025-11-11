@@ -28,12 +28,13 @@ const MenuCard : React.FC<MenuCardProps> = ({cover , description ,value}) => {
         </div>
 
         <div className='info flex flex-col justify-center pl-4 gap-2'
-        style={{ color : "b" }}>
+        style={{ color : "black" }}>
           <h2 className='text-[17px] font-semibold'>{description}</h2>
           <p className='text-[18px] font-bold'>${value.toFixed(2)}</p>
-          <motion.div className='add-to-cart-btn p-4'
+          <motion.div className='add-to-cart-btn p-4 font-bold'
           style={{ backgroundColor : "var(--color-coffee-dark)", borderRadius : "25px", width : "210px" , height : "55px", alignSelf : "end"}}
           initial={{ y : 0 }}
+          whileTap={{ y : 0 }}
           whileHover={{ y : -10, boxShadow : "var(--shadow-custom-button)" }}>
             Add to cart
           </motion.div>
