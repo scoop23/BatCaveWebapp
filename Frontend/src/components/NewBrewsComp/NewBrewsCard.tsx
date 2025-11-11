@@ -16,18 +16,21 @@ type NewBrewsProps = {
 
 const NewBrewsCard: React.FC<NewBrewsProps> = ({ brews }) => {
   return (
-    <section className="new-brews-container px-4 flex justify-center items-center" style={{
+    <section className="new-brews-container px-4 flex justify-center items-center w-full max-w-[1500px] h-full" style={{
       fontFamily : "var(--font-inter)"
     }}>
-      <motion.div className="grid gap-15 md:grid-cols-2 lg:grid-cols-3 w-[1500px]">
+      <motion.div className="grid gap-15 md:grid-cols-2 lg:grid-cols-3 w-full h-full">
         {brews.map((brew) => (
           <motion.div
             key={brew.id}
-            className="brew-card flex bg-[#935935] overflow-hidden rounded-[25px] shadow-[var(--shadow-custom)]"
+            className="brew-card w-full flex h-70 overflow-hidden rounded-[25px] shadow-[var(--shadow-custom)]"
+            style={{ 
+              backgroundColor : "var(--color-coffee-dark)", 
+            }}
             initial={{ y : 0 }}
             whileHover={{ y : -10  }}
           >
-            <div className="brew-image relative w-[450px] h-full">
+            <div className="brew-image relative w-full h-full">
               <Image
                 src={brew.imageUrl}
                 alt={brew.name}
@@ -39,10 +42,13 @@ const NewBrewsCard: React.FC<NewBrewsProps> = ({ brews }) => {
               <h3 className="text-xl font-semibold mb-2">{brew.name}</h3>
               <p className="text-[var(--color-silk-cream)] text-[13px]">{brew.description}</p>
 
-              <motion.div className="w-[120px] order-now-btn bg-[#754b31]  p-1.5 rounded-[25px] text-black px-3 cursor-pointer"
+              {/* button */}
+              <motion.div className="order-now-btn w-[120px]  p-1.5 rounded-[25px] text-black px-3 cursor-pointer text-center"
+              style={{ backgroundColor : "var(--color-accent)" }}
               initial={{ y : 0 }}
               whileHover={{  y : -5, boxShadow : "var(--shadow-custom-button)" }}
-              >Order Now</motion.div>
+              >Buy Now
+              </motion.div>
             </div>
           </motion.div>
         ))}

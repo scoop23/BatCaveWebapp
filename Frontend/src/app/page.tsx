@@ -4,12 +4,13 @@ import CarouselContainer from "../components/Carousel/CarouselContainer";
 import NewBrewsSection from "../components/NewBrewsComp/NewBrewsSection";
 import HomeSearch from "../components/SearchBar/HomeSearch";
 import Section from "../components/Section";
+import Footer from "../components/Footer/Footer";
 
 export default function Home() {
 
   return (
     <div className="home flex justify-center items-center w-full flex-col gap-4"> 
-      <Section navBarHeight={176} style={{ alignItems : "center", justifyContent : "center"}}> 
+      <Section isAnimated={false} navBarHeight={176} style={{ alignItems : "center", justifyContent : "center"}}> 
         {/* 175 is the height of the navbar */}
         <HomeSearch /> 
           <h1 style={{
@@ -23,18 +24,19 @@ export default function Home() {
 
 
       {/* 2nd section */}
-      <Section color="var(--color-silk-cream)" 
-      style={{ 
-        fontFamily : "var(--font-Cinzel)",
-        // justifyContent : "center"
-        alignItems : "center",
-        gap : "60px"
-      }}>
+      <Section isAnimated={true} color="var(--color-silk-cream)" 
+        style={{
+          fontFamily: "var(--font-Cinzel)",
+          alignItems: "center",
+          gap: "60px",
+          
+        }} className="mask-div">
 
         <NewBrewsSection />
 
-        <Link href={"/drinks"}><h1 className="text-[35px]">See all Drinks</h1></Link>
+        <Link href={"/drinks"}><h1 className="text-[35px]" style={{ color : "var(--color-coffee-medium)" }}>See all Drinks</h1></Link>
       </Section>
+      <Footer />
     </div>
   )
 }

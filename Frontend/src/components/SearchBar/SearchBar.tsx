@@ -24,12 +24,12 @@ const SearchBar :React.FC<SearchBarProps> = ({placeholder = "Search for Drinks..
       <section className='input-container flex-1 w-full'>
         <input
         className='w-full h-[49px] p-4 text-[18px] rounded-[15px] bg-amber-50 shadow-(--shadow-custom) text-black '
-        
         type='text'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
         onKeyDown={handleKeyPress}
+        
         />
       </section>
       <button className='search-btn w-full sm:w-[120px] h-[49px] rounded-[15px] bg-amber-800 shadow-(--shadow-custom) text-white font-medium'>

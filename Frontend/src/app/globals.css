@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
-
-/* Incrase the height of the slide component and its 'height' prop to 
-   lenghten its size. */
+/* ===== General Styles ===== */
 .my-slide-component {
-  height: 55vh; /* 50% of viewport height */
+  height: 55vh; /* 55% of viewport height */
   display: flex;
   justify-content: center;
   align-items: center; 
-} 
-/* override the RSCC because it automatically configure things */
-.react-stacked-center-carousel  {
+}
+
+/* Override the RSCC default behavior */
+.react-stacked-center-carousel {
   display: flex !important;
   align-items: center !important;
 }
 
+/* ===== Button Hover Effect ===== */
 .button::after {
   content: "";
   position: absolute;
@@ -26,38 +26,80 @@
   z-index: -1;
 }
 .button:hover::after {
-  background-color: #dbc1ac;
+  background-color: var(--color-silk-cream);
 }
 
+/* ===== Theme Variables ===== */
 :root {
+  /* Light mode */
   --background: #ffffff;
   --foreground: #171717;
-  --color-silk-cream : #dbc1ac;
+  
+  /* Brand colors */
+  --color-silk-cream: #dbc1ac;  /* Soft beige */
+  --color-coffee-dark: #754b31; /* Deep brown */
+  --color-coffee-medium: #935935; /* Medium roast */
 
   --shadow-custom: 5px 5px 0px 0px rgba(0,0,0,0.5);
   --shadow-custom-button: 0px 5px 0px 0px rgba(0,0,0,0.5);
 }
 
+/* ===== Masking ===== */
+
+.mask-div {
+  mask: url("../../public/images/maskforsection2.png") no-repeat center top;
+  mask-position: center top;
+  min-height: 100vh; /* at least fill the screen */
+}
+
+/* Tailwind theme injection */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--color-silk-cream);
+  --color-dark: var(--color-coffee-dark);
+  --color-medium: var(--color-coffee-medium);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* ===== Dark Mode ===== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0a0a0a; /* Deep dark base */
+    --foreground: #ededed; /* Light text */
+
+    /* Adjusted coffee tones for dark mode */
+    --color-silk-cream: #dbc1ac; /* Keep the warmth */
+    --color-coffee-dark: #935935; /* Slightly lighter for contrast */
+    --color-coffee-medium: #754b31; /* Swap to give depth */
   }
 }
 
+/* Optional class-based dark mode toggle (manual control) */
+body.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  --color-silk-cream: #dbc1ac;
+  --color-coffee-dark: #5c3a21; 
+  --color-coffee-medium: #3f2616;
+
+  --color-accent: #d99f6b;  /* For buttons, links, or hover states */
+  --color-muted: #999999; 
+}
+
+/* ===== Base Body ===== */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.dark {
-  
+@media (max-width : 1100px) {
+   .mask-div {
+    mask: none;
+   }
 }

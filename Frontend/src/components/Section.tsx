@@ -1,24 +1,43 @@
+"use client"
 import React from 'react'
+import { motion , Variants } from 'framer-motion'
 
 interface SectionProps {
   children : React.ReactNode,
   color? : string,
   navBarHeight? : number | 0,
   className? : string,
-  style? : React.CSSProperties
+  style? : React.CSSProperties,
+  isAnimated : boolean
 }
 
 
-const Section : React.FC<SectionProps> = ({ children , color , navBarHeight , className, style}) => {
-  console.log(navBarHeight)
+const Section : React.FC<SectionProps> = ({ children , color , navBarHeight , className, style, isAnimated}) => {
+  
+  const animationVariant : Variants = {
+    hidden : {
+      y : -200, opacity : 0
+    },
+    scrollView : {
+      y : 0, opacity : 1,
+      transition : { duration : 0.8 , ease : "easeInOut" }
+    }
+  }
+
   return (
-    <div className={`w-full flex-col flex-1 flex  ${className || ''}`} style={{
-      minHeight : `calc(100vh - ${navBarHeight || 0}px)`,
-      backgroundColor : color,// minus the navbars height
-      ...style
+    <motion.div
+    // will change this animation in the future
+    variants={animationVariant}
+    initial={isAnimated ? "hidden" : undefined}
+    whileInView={isAnimated ? "scrollView" : undefined}
+    viewport={isAnimated ? { once : true , margin : "-500px"} : undefined}
+    className={`w-full h-full flex-col flex-1 flex  ${className || ''}`} style={{
+      minHeight : `calc(100vh - ${navBarHeight || 0}px)`, // minus the navbars height
+      backgroundColor : color,
+      ...style,
     }}>
       {children}
-    </div>
+    </motion.div>
   )
 }
 

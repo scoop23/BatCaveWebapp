@@ -4,19 +4,25 @@ import '../../app/globals.css'
 import ActionButtonGroup from './Buttons/ActionButtonGroup'
 import Image from 'next/image'
 import brandImage from '../../../public/icons/brandIcon.png'
+import { useEffect } from 'react'
 
 
 const NavBar : React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []); // empty dependency array = run once on mount
   return (
     <div className='nav-bar-container flex justify-center'>
-      <nav className='nav-bar bg-[#935935] max-w-[1500px] w-full rounded-[100px] shadow-2xl shadow-[var(--shadow-custom)] z-1 mt-1.5'>
-        <section className='navigation-section flex justify-between px-20 py-4 pb-5'>
+      <nav className='nav-bar max-w-[1500px] w-full rounded-[100px] shadow-2xl shadow-[var(--shadow-custom)] z-1 mt-1.5'
+      style={{ backgroundColor : "var(--color-coffee-dark)" }}>
+        <section className='navigation-section flex h-[160px] justify-between px-20 py-4 pb-5'>
           <div className={`logo flex items-center gap-10 font-extrabold text-[23px]`}>
-            <div className='bg-[#754b31] rounded-[100px] shadow-[var(--shadow-custom)]'>
+            <div className='rounded-[100px] shadow-[var(--shadow-custom)]'
+            style={{ backgroundColor : "var(--color-coffee-medium)" }}>
               <Image src={brandImage} alt="BatCaveLogo" width={120} height={120}/>
             </div>
             <div className={`text-[35px]`}>
-              Cave Café.
+              Bat Cave Café.
             </div>
           </div>
           <ActionButtonGroup />

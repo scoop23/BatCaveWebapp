@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Alegreya, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/Navigation/NavBar";
 import localFont from 'next/font/local';
@@ -8,6 +8,10 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+
+const alegreya = Alegreya({
+  variable : "--font-alegreya"
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -39,13 +43,13 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased`} style={{
+      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased ${alegreya.variable} `}  style={{
         // height : "1339px"
       }}>
       <NavBar/>
       {/* Video */}
       <video 
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10" 
+        className="absolute top-0 left-0 w-full h-[1400px] object-cover -z-10" 
         src="/videos/backgroundVideo.mp4" 
         autoPlay 
         loop 
