@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react'
+import Image from 'next/image'
 // WILL ANALYZE THIS MORE IN THE FUTURE 
 export type RoomType = "study" | "function"
 
@@ -9,6 +10,7 @@ export interface Room { // get from database
   name : string,
   capacity : number,
   reservation : Reservations[]
+  image?: string // optional path or url to room image (e.g. '/images/coffee1.png')
 }
 
 export interface Reservations {
@@ -33,7 +35,6 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   const [pax, setPax] = useState<number>(1)
   const [feedback, setFeedback] = useState<string | null>(null)
   const [type ,setType] = useState<RoomType>("study")
-  const [status ,setStatus] = useState("Available")
 
   function handleSubmit(e: React.FormEvent) {
     
@@ -56,12 +57,24 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   }
 
   return (
-    <div className="room-card p-4 bg-white text-black rounded-md shadow-md" style={{ borderRadius: 12 }}>
-      <div className="flex justify-between items-start">
+    <div className="room-card w-full max-w-[900px] p-4 text-black rounded-md shadow-md" style={{ borderRadius: 12 , backgroundColor : "var(--color-coffee-dark)"}}>
+      {/* Top image */}
+      <div className="w-full h-[500px] relative rounded overflow-hidden mb-4" style={{ borderRadius: 8 }}>
+        <Image
+          src={room.image || '/images/room.png'}
+          alt={room.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
+
+      {/* Header: title + button */}
+      <div className="flex justify-between items-center">
         <div>
           <h3 className="text-lg font-semibold">{room.name}</h3>
-          <p className="text-sm text-gray-600">Capacity: {room.capacity} pax (max 20)</p>
-          {/* <p className="text-sm text-gray-600">Existing reservations: {room.reservations.length}</p> */}
+          <p className="text-sm text-black-600">Capacity: {room.capacity} pax (max 20)</p>
+          <div className='room-status text-black-600'>{room.reservation.length} reservations</div>
         </div>
         <div>
           <button className="px-3 py-1 bg-blue-600 text-white rounded" onClick={() => setShowForm(s => !s)}>
@@ -71,31 +84,64 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="mt-4 space-y-2">
+        <form onSubmit={handleSubmit} className="mt-4 space-y-3">
           <div>
             <label className="text-sm">Date</label>
-            <input className="block w-full mt-1 p-2 border rounded" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <input
+              aria-label="reservation-date"
+              className="block w-full mt-1 p-2 border rounded bg-white text-black"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div>
               <label className="text-sm">Start</label>
-              <input className="block w-full mt-1 p-2 border rounded" type="time" value={start} onChange={(e) => setStart(e.target.value)} />
+              <input
+                aria-label="reservation-start"
+                className="block w-full mt-1 p-2 border rounded bg-white text-black"
+                type="time"
+                value={start}
+                onChange={(e) => setStart(e.target.value)}
+              />
             </div>
             <div>
               <label className="text-sm">End</label>
-              <input className="block w-full mt-1 p-2 border rounded" type="time" value={end} onChange={(e) => setEnd(e.target.value)} />
+              <input
+                aria-label="reservation-end"
+                className="block w-full mt-1 p-2 border rounded bg-white text-black"
+                type="time"
+                value={end}
+                onChange={(e) => setEnd(e.target.value)}
+              />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 items-end">
             <div>
               <label className="text-sm">Pax</label>
-              <input className="block w-full mt-1 p-2 border rounded" type="number" min={1} max={20} value={pax} onChange={(e) => setPax(Number(e.target.value))} />
+              <input
+                aria-label="reservation-pax"
+                className="block w-full mt-1 p-2 border rounded bg-white text-black"
+                type="number"
+                min={1}
+                max={20}
+                value={pax}
+                onChange={(e) => setPax(Number(e.target.value))}
+              />
             </div>
             <div>
               <label className="text-sm">Type</label>
-              <select className='block w-full mt-1 p-2 border rounded' id='reserve-type' name='reserveType' onChange={(e) => setType(e.target.value)}>
+              <select
+                aria-label="reservation-type"
+                className='block w-full mt-1 p-2 border rounded bg-white text-black'
+                id='reserve-type'
+                name='reserveType'
+                value={type}
+                onChange={(e) => setType(e.target.value as RoomType)}
+              >
                 <option value="study">Study</option>
                 <option value="function">Function</option>
               </select>

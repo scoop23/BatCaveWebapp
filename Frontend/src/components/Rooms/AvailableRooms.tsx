@@ -6,6 +6,7 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import RoomCard from './RoomCard';
 import { Reservations } from './RoomCard';
 import { Room } from './RoomCard';
+import Section from '../Section';
 // Business rules implemented (assumptions):
 // - Max capacity per room is 20 (enforced on input)
 // - Only one reservation can be "exclusive" (type=function) at overlapping times for a given room.
@@ -43,8 +44,8 @@ const initialDummyRoomsFromDatabase : Room[] = [
 
 
 const AvailableRooms = () => {
-  const [timeNow , setTimeNow] = useState(dayjs().format())
-  
+  const [timeNow , setTimeNow] = useState(dayjs().format("DD:MM:HH:mm:ss"))
+
   const [room , setRoom] = useState
   (initialDummyRoomsFromDatabase);
   const [reservations , setReservations] = useState(room[0].reservation)
@@ -118,23 +119,22 @@ const AvailableRooms = () => {
         return room;
       })
     )
+
+    return { success : true, message : "Reserved Successfully"}
+     // preferably return a reservation id in future
+     // and a popup or something
   }
 
   return (
-    <div>
-      {
-        <div>
+    <Section isAnimated={true}>
+      <div className='available-rooms flex flex-col items-center gap-2 my-8'>
           {
-
+            room.map((r , i) => (
+              <RoomCard room={r} key={i} onReserve={onReserve}/>
+            ))
           }
-        </div>
-      }
-        {
-          room.map((r , i) => (
-            <RoomCard room={r} key={i} onReserve={onReserve}/>
-          ))
-        }
-    </div>
+      </div>
+    </Section>
   )
 }
 
