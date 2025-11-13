@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import UserShow from './UserShow'
 // WILL ANALYZE THIS MORE IN THE FUTURE 
 
 export enum RoomType {
@@ -12,8 +13,7 @@ export interface Room { // get from database
   id : number,
   name : string,
   capacity : number,
-  reservation : Reservations[]
-  image?: string // optional path or url to room image (e.g. '/images/coffee1.png')
+  reservation : Reservations[],
 }
 
 enum ReservationStatus {
@@ -25,7 +25,8 @@ enum ReservationStatus {
 }
 
 export interface Reservations {
-  id : number,
+  id : string,
+  userId : string
   date : string
   start : string,
   end : string,
@@ -34,57 +35,72 @@ export interface Reservations {
   status : ReservationStatus
 }
 
-interface RoomCardProps {
-  room : Room,
-  onReserve : (roomId : number , r : Omit<Reservations, 'id'>) => { success : boolean , message? : string }
+export interface User {
+  userId : string,
+  name : string,
+  phone : string
 }
 
+interface RoomCardProps {
+  room : Room,
+  onReserve : (roomId : number , r : Omit<Reservations, 'id'>) => { success : boolean , message? : string, reservationdId? : string }
+}
 
-// when this fires sends it to 
-const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
-  const [showUserForm, setShowUserForm] = useState(false);
-  const [showReservationForm, setShowReservationForm] = useState(false);
-  const [date, setDate] = useState('');
-  const [start, setStart] = useState('13:00');
-  const [end, setEnd] = useState('22:00');
-  const [pax, setPax] = useState<number>(1);
-  const [feedback, setFeedback] = useState<string | null>(null);
-  const [type ,setType] = useState<RoomType>(RoomType.Study);
-  const [status , setStatus] = useState<ReservationStatus>(ReservationStatus.Pending);
+  const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
+    const [showReservationForm, setShowReservationForm] = useState(false)
+    const [date, setDate] = useState('')
+    const [start, setStart] = useState('13:00')
+    const [end, setEnd] = useState('22:00')
+    const [pax, setPax] = useState<number>(1)
+    const [feedback, setFeedback] = useState<string | null>(null)
+    const [type, setType] = useState<RoomType>(RoomType.Study)
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+    const [userId, setUserId] = useState<string | null>(() => typeof window !== 'undefined' ? localStorage.getItem('userId') : null)
 
-    console.log({date , start , end , pax, type, status})
-    
-    if (!date || date === "") {
-      setFeedback('Please select a date')
-      return;
-    }
+    const [reservationId, setReservationId] = useState<string | null>(() => {
+      try { return typeof window !== 'undefined' ? String(localStorage.getItem('reservationId')) || null : null } catch { return null }
+    })
 
-    const res = onReserve(room.id, { date, start, end, pax , type, status})
+    async function handleSubmit(e: React.FormEvent) {
+      e.preventDefault()
+      if (!date) {
+        setFeedback('Please select a date')
+        return
+      }
+      if (!userId) {
+        setFeedback('Please enter your details first.')
+        return
+      }
+
+    const res = onReserve(room.id, { date, start, end, pax , type, status : ReservationStatus.Pending, userId})
     if (!res.success) {
       setFeedback(res.message || 'Could not reserve')
+      setShowReservationForm(true);
     } else {
       setFeedback('Reserved successfully')
-      setShowReservationForm(false)
+      setShowReservationForm(false);
     }
   } 
 
+  // if user doesnt have infor show this 
+  if (!userId) {
+    return <UserShow onSaveUser={setUserId} />;
+  }
 
   return (
     <div className="room-card w-full max-w-[900px] p-4 text-black rounded-md shadow-md" style={{ borderRadius: 12 , backgroundColor : "var(--color-coffee-dark)", boxShadow : "var(--shadow-custom)"}}>
       {/* Top image */}
       <div className="w-full h-[500px] relative rounded overflow-hidden mb-4" style={{ borderRadius: 8 }}>
         <Image
-          src={room.image || '/images/room.png'}
+          // src={room.image || '/images/room.png'}
+          src={'/images/room.png'}
           alt={room.name}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
           style={{ objectFit: 'cover' }}
         />
       </div>
-
+    
       {/* Header: title + button */}
       <div className="flex justify-between items-center">
         <div>
@@ -98,7 +114,6 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
           </button>
         </div>
       </div>
-
 
 
       {/* Input Reservation Form */}

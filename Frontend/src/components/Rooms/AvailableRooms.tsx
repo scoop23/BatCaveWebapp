@@ -7,6 +7,7 @@ import RoomCard, { RoomType } from './RoomCard';
 import { Reservations } from './RoomCard';
 import { Room } from './RoomCard';
 import Section from '../Section';
+
 // Business rules implemented (assumptions):
 // - Max capacity per room is 20 (enforced on input)
 // - Only one reservation can be "exclusive" (type=function) at overlapping times for a given room.
@@ -103,10 +104,9 @@ const AvailableRooms = () => {
       }
     } 
 
-    const newReservation = {id : Date.now() * 100, ...r}
-
+    const newReservation = {id : `R#${Date.now() * 100}`, ...r}
     setReservations([...currentRoom.reservation , newReservation])
-
+    
     setRoom(prev => // get the roooms
       prev.map(room => { // loop through the rooms 
         if(room.id === roomId) { // if the id of one of the rooms is the same as the one we inputted which is the what we loop through in the return of this whole component
@@ -119,7 +119,8 @@ const AvailableRooms = () => {
       })
     )
 
-    return { success : true, message : "Reserved Successfully"}
+    // if successful return the reservation ID
+    return { success : true, message : "Reserved Successfully", reservationId : newReservation.id}
      // preferably return a reservation id in future
      // and a popup or something
   }
