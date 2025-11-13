@@ -7,6 +7,8 @@ import RoomCard, { RoomType } from './RoomCard';
 import { Reservations } from './RoomCard';
 import { Room } from './RoomCard';
 import Section from '../Section';
+import axios from 'axios';
+import axiosMain, { apiGet } from '@/src/api/axios';
 
 // Business rules implemented (assumptions):
 // - Max capacity per room is 20 (enforced on input)
@@ -46,9 +48,27 @@ const initialDummyRoomsFromDatabase : Room[] = [
 
 const AvailableRooms = () => {
   const [timeNow , setTimeNow] = useState(dayjs().format("DD:MM:HH:mm:ss"))
-  
+
   const [room , setRoom] = useState(initialDummyRoomsFromDatabase);
   const [reservations , setReservations] = useState(room[0].reservation)
+  console.log(room)
+
+  useEffect(() => {
+    // getting data from database now.
+    const fetchRoomData = async () => {
+      const roomResponse = await axios.get("http://localhost/BatCave/backend/public/rooms")
+      const reservationResponse = await axios.get("http://localhost/BatCave/backend/public/reservations");
+
+      const roomsWithReservations = roomResponse.data.map((room : Room) => ({
+        ...room,
+        reservation : reservationResponse.data.filter((r : Reservations) => r.id === room.id)
+      }));
+
+      setRoom(roomsWithReservations)
+    }
+
+    fetchRoomData();
+  }, [])
 
   useEffect(() => {
     reservations.map(r => {
@@ -104,10 +124,16 @@ const AvailableRooms = () => {
         return { success : false  , message : "Pax exceed maximum limit / change the pax "}
       }
     } 
-
+    // if no problems, create new reservation
     const newReservation = {id : `R#${Date.now() * 100}`, ...r}
-
+    // send it to the database
+    const sendNewReservation = async () => {
+      const res = axios.post("http://localhost/BatCave/backend/public/reservations", newReservation);
+      
+      console.log(res);
+    }
     
+    sendNewReservation();
 
     setReservations([...currentRoom.reservation , newReservation])
     

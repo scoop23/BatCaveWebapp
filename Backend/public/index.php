@@ -76,35 +76,35 @@ try {
     $route = substr($uri, strlen($basePath));
     // substr cuts the first $basePath and just do '/rooms'
 
-    if ($uri === '/rooms' && $method === 'GET') {
+    if ($route === '/rooms' && $method === 'GET') {
         echo json_encode($roomModel->getRooms());
         exit;
     }
 
-    if ($uri === '/rooms' && $method === 'POST') {
+    if ($route === '/rooms' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
         echo json_encode($roomModel->createRoom($data));
         exit;
     }
 
-    if ($uri === '/reservations' && $method === 'GET') {
+    if ($route === '/reservations' && $method === 'GET') {
         echo json_encode($reservationModel->getReservations());
         exit;
     }
 
-    if ($uri === '/reservations' && $method === 'POST') {
+    if ($route === '/reservations' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
         echo json_encode($reservationModel->createReservation($data));
         exit;
     }
 
-    if ($uri === '/users' && $method === 'POST') {
+    if ($route === '/users' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
         echo json_encode($userModel->createUser($data));
         exit;
     }
 
-    if ($uri === '/users' && $method === 'GET') {
+    if ($route === '/users' && $method === 'GET') {
         echo json_encode($userModel->getUsers());
         exit;
     }
