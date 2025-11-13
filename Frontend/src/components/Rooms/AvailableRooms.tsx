@@ -106,6 +106,9 @@ const AvailableRooms = () => {
     } 
 
     const newReservation = {id : `R#${Date.now() * 100}`, ...r}
+
+    
+
     setReservations([...currentRoom.reservation , newReservation])
     
     setRoom(prev => // get the roooms
@@ -125,6 +128,8 @@ const AvailableRooms = () => {
     return { success : true, message : "Reserved Successfully", reservationId : newReservation.id}
      // and a popup or something
   }
+
+  
 
   return (
     <Section isAnimated={true}>

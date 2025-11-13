@@ -63,6 +63,8 @@ interface RoomCardProps {
       localStorage.getItem("reservationId") || null
     ))
 
+    const [reservationData, setReservationData] = useState<Reservations | null>(null);
+
     const [userData ,setUserData] = useState({});
 
     async function onSaveUser(userId : string , name : string, phone : string, reservationId : string | null) {

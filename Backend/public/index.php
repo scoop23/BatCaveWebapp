@@ -74,22 +74,43 @@ try {
     // Adjust for your folder structure
     $basePath = '/BatCave/backend/public';
     $route = substr($uri, strlen($basePath));
+    // substr cuts the first $basePath and just do '/rooms'
 
-    if ($route === '/rooms' && $method === 'GET') {
+    if ($uri === '/rooms' && $method === 'GET') {
         echo json_encode($roomModel->getRooms());
         exit;
     }
 
-    if ($route === '/users' && $method === 'POST') {
+    if ($uri === '/rooms' && $method === 'POST') {
+        $data = json_decode(file_get_contents('php://input'), true);
+        echo json_encode($roomModel->createRoom($data));
+        exit;
+    }
+
+    if ($uri === '/reservations' && $method === 'GET') {
+        echo json_encode($reservationModel->getReservations());
+        exit;
+    }
+
+    if ($uri === '/reservations' && $method === 'POST') {
+        $data = json_decode(file_get_contents('php://input'), true);
+        echo json_encode($reservationModel->createReservation($data));
+        exit;
+    }
+
+    if ($uri === '/users' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
         echo json_encode($userModel->createUser($data));
         exit;
     }
 
-    if($route === 'reservations' && $method === 'GET') {
-        echo json_encode($reservationModel->getReservations());
+    if ($uri === '/users' && $method === 'GET') {
+        echo json_encode($userModel->getUsers());
         exit;
     }
+
+    http_response_code(404);
+    echo json_encode(['error' => 'Route not found']);
 
 
     // Default
