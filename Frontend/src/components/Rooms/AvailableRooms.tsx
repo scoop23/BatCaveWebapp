@@ -40,7 +40,7 @@ export function reservationOverlap(startA: string, endA: string, startB: string,
 
 // room
 const initialDummyRoomsFromDatabase : Room[] = [
-  {id : 1 , name : "Study Room" , capacity : 20, reservation : []}
+  {id : "ROOM1" , name : "Study Room" , capacity : 20, reservation : []}
 ]
 
 
@@ -51,7 +51,7 @@ const AvailableRooms = () => {
   const [reservations , setReservations] = useState(room[0].reservation)
 
   useEffect(() => {
-    reservations.map((r, i) => {
+    reservations.map(r => {
       if(r) {
         console.log("reservation created at " + r.date)
         console.log(r)
@@ -60,7 +60,7 @@ const AvailableRooms = () => {
   })
 
   // this is what the user inputted
-  function onReserve(roomId : number, r : Omit<Reservations , 'id'>) {
+  function onReserve(roomId : string, r : Omit<Reservations , 'id'>) {
     const currentRoom = room.find(room => roomId === room.id);
     // r is if the user inputted something r is the object and omit is remove the id 
     
@@ -121,15 +121,16 @@ const AvailableRooms = () => {
     )
 
     // if successful return the reservation ID
+    // object that we will send to the user
     return { success : true, message : "Reserved Successfully", reservationId : newReservation.id}
-     // preferably return a reservation id in future
      // and a popup or something
   }
 
   return (
     <Section isAnimated={true}>
       <div className='available-rooms flex flex-col items-center gap-2 my-8'>
-          {
+          { 
+          // room is from the database
             room.map((r , i) => (
               <RoomCard room={r} key={i} onReserve={onReserve}/>
             ))

@@ -10,7 +10,7 @@ export enum RoomType {
 }
 
 export interface Room { // get from database
-  id : number,
+  id : string,
   name : string,
   capacity : number,
   reservation : Reservations[],
@@ -26,13 +26,14 @@ enum ReservationStatus {
 
 export interface Reservations {
   id : string,
-  userId : string // foreign key to the users table
-  date : string
+  userId : string, // foreign key to the users table
+  date : string,
   start : string,
   end : string,
   pax : number,
   type : RoomType,
-  status : ReservationStatus
+  status : ReservationStatus,
+  roomId : string
 }
 
 export interface User {
@@ -43,7 +44,7 @@ export interface User {
 
 interface RoomCardProps {
   room : Room,
-  onReserve : (roomId : number , r : Omit<Reservations, 'id'>) => { success : boolean , message? : string, reservationId? : string }
+  onReserve : (roomId : string , r : Omit<Reservations, 'id'>) => { success : boolean , message? : string, reservationId? : string }
 }
 
   const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
@@ -77,7 +78,7 @@ interface RoomCardProps {
         return
       }
 
-    const res = onReserve(room.id, { date, start, end, pax , type, status : ReservationStatus.Pending, userId})
+    const res = onReserve(room.id, { date, start, end, pax , type, status : ReservationStatus.Pending, userId, roomId : room.id})
     if (!res.success) {
       setFeedback(res.message || 'Could not reserve')
       setShowReservationForm(true);
@@ -98,6 +99,7 @@ interface RoomCardProps {
 
   
   if (userId && reservationId) { 
+    // fetch from database the data
     const name = localStorage.getItem("userName")
     const phone = localStorage.getItem("userPhone")
     return (

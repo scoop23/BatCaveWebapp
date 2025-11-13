@@ -5,13 +5,6 @@ import { useRef } from 'react'
 
 const ActionButtonGroup: React.FC = () => {
   const buttonRefs = useRef<ActionButtonRef[] | null[]>([])
-
-  useEffect(() => {
-    if(buttonRefs) {
-      console.log(buttonRefs.current);
-    }
-  }, [])
-
   return (
     <div className='action-button-group h-[120px] w-[500px]'>
       <ActionButtons

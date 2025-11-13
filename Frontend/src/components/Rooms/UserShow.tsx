@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react'
 import '../../app/globals.css'
 import { useState } from 'react'
+import '../../app/globals.css'
+import {motion} from 'framer-motion'
 
 interface UserShowProps {
   onSaveUser : (userId : string , name : string, phone : string, reservationId : string | null) => void
@@ -42,8 +44,10 @@ const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
   }
 
   return (
-    <form onSubmit={handleSave} className="p-4 bg-gray-100 rounded shadow flex flex-col gap-5 text-black" style={{
-      fontFamily : "var(--font-inter)"
+    <form onSubmit={handleSave} className="p-4 rounded shadow flex flex-col gap-5 text-black" style={{
+      fontFamily : "var(--font-inter)",
+      backgroundColor : "var(--color-coffee-dark)",
+      boxShadow : "var(--shadow-custom)"
     }}>
       <h3 className=''>We need basic information for us to allow reservations</h3>
       <h4 className="font-semibold">Enter your details</h4>
@@ -65,7 +69,10 @@ const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
           className="block w-full p-2 border rounded"
         />
       </div>
-      <button className="px-4 py-2 bg-blue-600 text-white rounded" type="submit">Save</button>
+      <motion.button className="px-4 py-2 text-black rounded cursor-pointer" type="submit"
+      style={{ backgroundColor : "var(--color-accent)" }}
+      initial={{ y : 0 }}
+      whileHover={{ y : -7 , boxShadow : "var(--shadow-custom-button)"}}>Save</motion.button>
       {message && <p className="text-sm text-red-600">{message}</p>}
     </form>
   )
