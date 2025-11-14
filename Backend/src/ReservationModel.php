@@ -64,8 +64,8 @@ class ReservationModel {
         ");
         $stmt->execute([
             ':id' => $data['id'],
-            ':room_id' => $data['room_id'],
-            ':user_id' => $data['user_id'],
+            ':room_id' => $data['roomId'],
+            ':user_id' => $data['userId'],
             ':date' => $data['date'],
             ':start' => $data['start'],
             ':end' => $data['end'],

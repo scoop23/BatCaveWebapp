@@ -10,6 +10,7 @@ interface UserShowProps {
 }
 
 const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
+
   const [userId , setUserId] = useState<string | null>(() => localStorage.getItem("userId"));
   const [name , setName] = useState(() => localStorage.getItem("userName") || '');
   const [phone , setPhone] = useState(() => localStorage.getItem("userPhone") || '');
@@ -39,8 +40,8 @@ const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
 
     setUserId(newUserId);
     setReservationId(reservationid);
-    onSaveUser(newUserId, name, phone, reservationid)
-    setMessage('User saved successfully!')
+    onSaveUser(newUserId, name, phone, reservationid);
+    setMessage('User saved successfully!');
   }
 
   return (

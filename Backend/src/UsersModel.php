@@ -17,7 +17,7 @@ class UsersModel {
             VALUES (:id, :name, :phone)
         ");
         $stmt->execute([
-            ':id' => $data['id'],
+            ':id' => $data['userId'],
             ':name' => $data['name'],
             ':phone' => $data['phone']
         ]);

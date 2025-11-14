@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import UserShow from './UserShow'
 import axios from 'axios'
+import { apiPost } from '@/src/api/axios'
+import { useRouter } from 'next/navigation'
+
 // WILL ANALYZE THIS MORE IN THE FUTURE 
 // WILL USE CONTEXT FOR BETTER STATE MANAGEMENT AND FOR REAL AUTHORIZATION
 export enum RoomType {
@@ -57,6 +60,8 @@ interface RoomCardProps {
     const [feedback, setFeedback] = useState<string | null>(null)
     const [type, setType] = useState<RoomType>(RoomType.Study)
 
+    const router = useRouter();
+    const [userSaved , setUserSaved] = useState(false);
     const [userId, setUserId] = useState<string | null>(() => typeof window !== 'undefined' ? localStorage.getItem('userId') : null)
 
     const [reservationId, setReservationId] = useState<string | null>(() => (
@@ -70,13 +75,24 @@ interface RoomCardProps {
     async function onSaveUser(userId : string , name : string, phone : string, reservationId : string | null) {
       // localStorage.setItem("reservationId" , reservationId || "")
       // store this in the database
-      const response = await axios.post('http://localhost/BatCave/backend/public/users', {
-        userId,
-        name,
-        phone
-      })
-      setUserData(response);
+      // const response = await axios.post('http://localhost/BatCave/backend/public/users', {
+      //   userId,
+      //   name,
+      //   phone
+      // })
+      // setUserData(response);
+      const response = await apiPost("/users", { userId , name , phone });
+      setUserData(response?.data);
+      setUserId(userId);
+      setReservationId(reservationId);
+      setUserSaved(true);
     }
+
+    useEffect(() => {
+      if(userSaved) {
+        router.push('/rooms')
+      }
+    }, [userSaved, router])
 
     useEffect(() => {
       if(userData) {

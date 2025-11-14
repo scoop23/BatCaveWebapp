@@ -8,7 +8,7 @@ import { Reservations } from './RoomCard';
 import { Room } from './RoomCard';
 import Section from '../Section';
 import axios from 'axios';
-import axiosMain, { apiGet } from '@/src/api/axios';
+import axiosMain, { apiGet, apiPost } from '@/src/api/axios';
 
 // Business rules implemented (assumptions):
 // - Max capacity per room is 20 (enforced on input)
@@ -46,6 +46,9 @@ const initialDummyRoomsFromDatabase : Room[] = [
 ]
 
 
+
+
+
 const AvailableRooms = () => {
   const [timeNow , setTimeNow] = useState(dayjs().format("DD:MM:HH:mm:ss"))
 
@@ -53,9 +56,7 @@ const AvailableRooms = () => {
   const [reservations , setReservations] = useState(room[0].reservation)
   console.log(room)
 
-  useEffect(() => {
-    // getting data from database now.
-    const fetchRoomData = async () => {
+  const fetchRoomData = async () => {
       const roomResponse = await axios.get("http://localhost/BatCave/backend/public/rooms")
       const reservationResponse = await axios.get("http://localhost/BatCave/backend/public/reservations");
 
@@ -67,6 +68,8 @@ const AvailableRooms = () => {
       setRoom(roomsWithReservations)
     }
 
+  useEffect(() => {
+    // getting data from database now.
     fetchRoomData();
   }, [])
 
@@ -81,6 +84,7 @@ const AvailableRooms = () => {
 
   // this is what the user inputted
   function onReserve(roomId : string, r : Omit<Reservations , 'id'>) {
+    console.log(r)
     const currentRoom = room.find(room => roomId === room.id);
     // r is if the user inputted something r is the object and omit is remove the id 
     
@@ -128,9 +132,10 @@ const AvailableRooms = () => {
     const newReservation = {id : `R#${Date.now() * 100}`, ...r}
     // send it to the database
     const sendNewReservation = async () => {
-      const res = axios.post("http://localhost/BatCave/backend/public/reservations", newReservation);
+      const res = apiPost("/reservations", newReservation);
       
       console.log(res);
+      fetchRoomData();
     }
     
     sendNewReservation();
