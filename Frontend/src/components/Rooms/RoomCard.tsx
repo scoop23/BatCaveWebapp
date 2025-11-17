@@ -76,14 +76,6 @@ interface RoomCardProps {
     const [userData ,setUserData] = useState({});
 
     async function onSaveUser(userId : string , name : string, phone : string, reservationId : string | null) {
-      // localStorage.setItem("reservationId" , reservationId || "")
-      // store this in the database
-      // const response = await axios.post('http://localhost/BatCave/backend/public/users', {
-      //   userId,
-      //   name,
-      //   phone
-      // })
-      // setUserData(response);
       const response = await apiPost("/users", { userId , name , phone });
       setUserData(response?.data);
       setUserId(userId);
@@ -163,11 +155,10 @@ interface RoomCardProps {
     return reservationData.find((r) => r.id === reservationId);
   }, [reservationData, reservationId])
 
-  // if user doesnt have infor show this 
-
-  // if (!userId) {
-  //   return <UserShow onSaveUser={onSaveUser} />;
-  // }  
+  // if user doesnt have information show this 
+  if (!userId) {
+    return <UserShow onSaveUser={onSaveUser} />;
+  }  
   
   // if (userId && reservationData && reservationId) { 
   //   // fetch from database matching data of reservations and users
@@ -175,20 +166,18 @@ interface RoomCardProps {
   // } else {
   //   console.log("Not in ")
   // }
-  if (!reservationData) {
-    return <div>Loading...</div>;
-  }
+  // if (!reservationData) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
-    <div>
+    <div className='w-full max-w-[1100px]'>
       {currentReservation ? (
-          <ConfirmationCard reservationData={[currentReservation]} />
+        <ConfirmationCard reservationData={[currentReservation]} />
       ) : (
-        <>
-         <div className="room-card w-full max-w-[900px] h-full  p-4 text-black rounded-md shadow-md" style={{ borderRadius: 12 , backgroundColor : "var(--color-coffee-dark)", boxShadow : "var(--shadow-custom)"}}></div>
+        <div className="room-card w-full p-4 text-black rounded-md shadow-md" style={{ borderRadius: 12, backgroundColor: "var(--color-coffee-dark)", boxShadow: "var(--shadow-custom)" }}>
           <div className="w-full h-[500px] relative rounded overflow-hidden mb-4" style={{ borderRadius: 8 }}>
             <Image
-              // src={room.image || '/images/room.png'}
               src={'/images/room.png'}
               alt={room.name}
               fill
@@ -283,11 +272,9 @@ interface RoomCardProps {
             </form>
           )}
 
-      {feedback && <p className="mt-2 text-sm text-red-600">{feedback}</p>}
-        </>
+          {feedback && <p className="mt-2 text-sm text-red-600">{feedback}</p>}
+        </div>
       )}
-      
-      
     </div>
   )
 }

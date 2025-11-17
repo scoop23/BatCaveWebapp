@@ -18,8 +18,8 @@ const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
   const [reservationid , setReservationId] = useState<string | null>(() => localStorage.getItem("reservationId"));
 
   const validatePhone = (phone: string) => {
-    // Simple regex for 10-12 digits (adjust for your locale)
-    return /^\d{10,12}$/.test(phone)
+    // Allow various phone formats: 10-15 digits, with optional spaces, hyphens, or parentheses
+    return /^[\d\s\-\(\)]{10,15}$/.test(phone.replace(/\D/g, '').trim()) && /\d/.test(phone)
   }
   
   const handleSave = (e: React.FormEvent) => {
@@ -30,7 +30,8 @@ const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
     }
 
     if(!validatePhone(phone)) {
-      setMessage("Phone number must be 10-12 digits")
+      setMessage("Phone number must be at least 10 digits")
+      return
     }
 
     const newUserId = `U${Date.now()}` // simple unique ID
