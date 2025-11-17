@@ -5,7 +5,7 @@ declare(strict_types=1);
 class Database {
 
   private \PDO $pdo;
-
+  // directoy for linux - sqlite:/opt/lampp/htdocs/batcave/Batcave/Backend/src/mydatabase.db
   public function __construct(private string $path = 'D:\BASTITE\xampp2\htdocs\BatCave\Backend\database\batcave.db'){
     $this->connect();
   }
