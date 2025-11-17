@@ -11,7 +11,7 @@ interface UserShowProps {
 
 const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
 
-  const [userId , setUserId] = useState<string | null>(() => localStorage.getItem("userId"));
+  const [userId , setUserId] = useState<string | null>(() => typeof window !== undefined ? localStorage.getItem("userId") : null);
   const [name , setName] = useState(() => localStorage.getItem("userName") || '');
   const [phone , setPhone] = useState(() => localStorage.getItem("userPhone") || '');
   const [message , setMessage] = useState<string | null>(null);

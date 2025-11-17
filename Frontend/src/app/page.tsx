@@ -29,7 +29,6 @@ export default function Home() {
           fontFamily: "var(--font-Cinzel)",
           alignItems: "center",
           gap: "60px",
-          
         }} className="mask-div">
 
         <NewBrewsSection />

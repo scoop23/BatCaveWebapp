@@ -4,7 +4,7 @@ import "./globals.css";
 import NavBar from "../components/Navigation/NavBar";
 import localFont from 'next/font/local';
 import Footer from "../components/Footer/Footer";
-
+import Wave from 'react-wavify'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,10 +47,25 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased ${alegreya.variable} `}  style={{
         // height : "1339px"
+        background : "#967259"
       }}>
       <NavBar/>
+
+      <Wave 
+        fill="var(--color-coffee-medium)"
+        className="absolute top-0"
+        style={{ transform : "scaleY(-1)", height : "180px" }}
+        paused={false}
+        options={{
+          height: 0,
+          amplitude: 25,
+          speed: 0.25,
+          points: 3
+        }}
+      />
+
       {/* Video */}
-      <video 
+      {/* <video 
         className="absolute top-0 left-0 w-full h-[1400px] object-cover -z-10" 
         src="/videos/backgroundVideo.mp4" 
         autoPlay 
@@ -59,7 +74,7 @@ export default function RootLayout({
         style={{
           filter: "blur(8px)"
         }}
-      />
+      /> */}
         {children}
       <Footer />
       </body>

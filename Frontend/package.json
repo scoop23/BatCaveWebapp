@@ -16,6 +16,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-stacked-center-carousel": "^1.0.14",
+    "react-wavify": "^1.11.1",
     "simplebar-react": "^3.3.2"
   },
   "devDependencies": {

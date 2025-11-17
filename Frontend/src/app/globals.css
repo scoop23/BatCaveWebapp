@@ -83,6 +83,7 @@ body.dark {
   --foreground: #ededed;
 
   --color-silk-cream: #dbc1ac;
+  --color-silk : #967259;
   --color-coffee-dark: #5c3a21; 
   --color-coffee-medium: #3f2616;
 
@@ -92,7 +93,7 @@ body.dark {
 
 /* ===== Base Body ===== */
 body {
-  background: var(--background);
+  /* background: var(--background); */
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;

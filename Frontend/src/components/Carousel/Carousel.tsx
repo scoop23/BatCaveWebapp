@@ -48,9 +48,9 @@ const Carousel : React.FC<CarouselProps> = ({ parentWidth }) => {
       />
       <>
         <button className='bg-[#935935] w-[60px] flex items-center justify-center h-[60px] p-4 absolute ' style={{
-          top : "40%",
+          top : "45%",
           cursor : "pointer",
-          left : "170px",
+          left : "140px",
           zIndex : "10",
           borderRadius : "50px"
         }} onClick={() => {
@@ -63,9 +63,9 @@ const Carousel : React.FC<CarouselProps> = ({ parentWidth }) => {
         </button>
 
         <button className='bg-[#935935] w-[60px] flex items-center justify-center h-[60px] p-4 absolute ' style={{
-          top : "40%",
+          top : "45%",
           cursor : "pointer",
-          right : "170px",
+          right : "140px",
           zIndex : "10",
           borderRadius : "50px"
         }} onClick={() => {

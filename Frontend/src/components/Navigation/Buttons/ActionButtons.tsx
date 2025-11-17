@@ -25,7 +25,7 @@ const ActionButtons = forwardRef<ActionButtonRef, ActionButtonProps>(
       container: containerRef.current,
     }))
 
-    const navs = ["Home" , "About" , "Rooms", "Menu"]
+    const navs = ["About" , "Rooms" , "Menu", "Home"]
 
 
     const buttons = navs.map((nav, i) => (

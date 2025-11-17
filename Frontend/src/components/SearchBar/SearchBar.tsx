@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
 import { useState } from 'react'
-
+import { motion } from 'framer-motion'
 interface SearchBarProps {
   placeholder? : string,
   onSearch : (query : string) => void
@@ -32,9 +32,9 @@ const SearchBar :React.FC<SearchBarProps> = ({placeholder = "Search for Drinks..
         
         />
       </section>
-      <button className='search-btn w-full sm:w-[120px] h-[49px] rounded-[15px] bg-amber-800 shadow-(--shadow-custom) text-white font-medium'>
+      <motion.button className='search-btn w-full sm:w-[120px] h-[49px] rounded-[15px] bg-amber-800 shadow-(--shadow-custom) text-white font-medium'>
         Search
-      </button>
+      </motion.button>
     </div>
   )
 }

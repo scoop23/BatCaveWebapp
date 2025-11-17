@@ -9,6 +9,7 @@ import { Room } from './RoomCard';
 import Section from '../Section';
 import axios from 'axios';
 import axiosMain, { apiGet, apiPost } from '@/src/api/axios';
+import { AnimatePresence } from 'motion/react';
 
 // Business rules implemented (assumptions):
 // - Max capacity per room is 20 (enforced on input)
@@ -22,7 +23,7 @@ dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 
 
-export function withinOperatingHours(start: string, end: string, openTime: string, closeTime: string) {
+export function withinOperatingHours(start: string, end: string, openTime: string, closeTime: string) : boolean{
   const startTime = dayjs(`2000-01-01T${start}`);
   const endTime = dayjs(`2000-01-01T${end}`);
   const open = dayjs(`2000-01-01T${openTime}`);
@@ -40,7 +41,7 @@ export function withinOperatingHours(start: string, end: string, openTime: strin
  * @returns {boolean} checks if the first date is before the end of the second date and if the end of the first date is after the start of the second date. Basically , just checks if its inside. 
  */
 
-export function reservationOverlap(startA: string, endA: string, startB: string, endB: string) {
+export function reservationOverlap(startA: string, endA: string, startB: string, endB: string): boolean {
   const aStart = dayjs(`2000-01-01T${startA}`);
   const aEnd = dayjs(`2000-01-01T${endA}`);
   const bStart = dayjs(`2000-01-01T${startB}`);
@@ -166,15 +167,17 @@ const AvailableRooms = () => {
   
 
   return (
-    <Section isAnimated={true}>
-      <div className='available-rooms flex flex-col items-center gap-2 my-8'>
-          { 
-          // room is from the database
-            room.map((r , i) => (
-              <RoomCard room={r} key={i} onReserve={onReserve}/>
-            ))
-          }
-      </div>
+    <Section isAnimated={false}>
+      <AnimatePresence>
+        <div className='available-rooms flex flex-col items-center gap-2 my-8'>
+            { 
+            // room is from the database
+              room.map((r , i) => (
+                <RoomCard room={r} key={i} onReserve={onReserve}/>
+              ))
+            }
+        </div>
+      </AnimatePresence>
     </Section>
   )
 }

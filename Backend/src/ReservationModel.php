@@ -43,14 +43,14 @@ class ReservationModel {
 
     public function getReservationsByUser(string $userId): array {
       $stmt = $this->pdo->prepare("
-          SELECT r.*, u.name AS user_name, rm.name AS room_name
+          SELECT r.*, u.name AS user_name, rm.name AS room_name, u.phone
           FROM Reservations r
           JOIN Users u ON r.user_id = u.id
           JOIN Rooms rm ON r.room_id = rm.id
           WHERE r.user_id = :userId
       ");
       $stmt->execute([':userId' => $userId]);
-      return $stmt->fetchAll();
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function createReservation(array $data): array {

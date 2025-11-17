@@ -28,7 +28,7 @@ const Section : React.FC<SectionProps> = ({ children , color , navBarHeight , cl
     <motion.div
     // will change this animation in the future
     variants={animationVariant}
-    initial={isAnimated ? "hidden" : undefined}
+    initial={isAnimated ? "hidden" : isAnimated ? "card" : undefined}
     whileInView={isAnimated ? "scrollView" : undefined}
     viewport={isAnimated ? { once : true , margin : "-200px"} : undefined}
     className={`w-full h-full flex-col flex-1 flex  ${className || ''}`} style={{
