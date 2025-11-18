@@ -64,7 +64,7 @@ interface RoomCardProps {
     const [pax, setPax] = useState<number>(1)
     const [feedback, setFeedback] = useState<string | null>(null)
     const [type, setType] = useState<RoomType>(RoomType.Study)
-
+    const [price, setPrice] = useState<number>(0);
     const router = useRouter();
     const [userSaved , setUserSaved] = useState(false);
     const [userId, setUserId] = useState<string | null>(() => typeof window !== 'undefined' ? localStorage.getItem('userId') : null)
@@ -115,6 +115,7 @@ interface RoomCardProps {
         setFeedback(res.message || 'Could not reserve')
         setShowReservationForm(true);
       } else {
+        console.log(pax);
         if (res.reservationId) {
           localStorage.setItem('reservationId', res.reservationId)
           setReservationId(res.reservationId)
@@ -129,6 +130,7 @@ interface RoomCardProps {
     const fetchUserReservation = async () => {
       const response = await apiPost("/reservations-by-user", { userId }); // ;ost the userId to find the reservation
       console.log("fetch response:", response?.data);
+      
       const formatted = response?.data.map((r : any) => ({
         id : r.id,
         userId : r.user_id,

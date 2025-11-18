@@ -62,8 +62,8 @@ const AvailableRooms = () => {
   const [reservations , setReservations] = useState(room[0].reservation)
 
   const fetchRoomData = async () => {
-      const roomResponse = await axios.get("http://localhost/BatCave/backend/public/rooms")
-      const reservationResponse = await axios.get("http://localhost/BatCave/backend/public/reservations");
+      const roomResponse = await axios.get("http://localhost/batcave/backend/public/rooms")
+      const reservationResponse = await axios.get("http://localhost/batcave/backend/public/reservations");
 
       const roomsWithReservations = roomResponse.data.map((room : Room) => ({
         ...room,
@@ -131,6 +131,9 @@ const AvailableRooms = () => {
       if(totalPax + r.pax > currentRoom.capacity) {
         return { success : false  , message : "Pax exceed maximum limit / change the pax "}
       }
+      const totalPaxAfterReservation = totalPax + r.pax;
+      console.log("Total Pax after reservation: " + totalPaxAfterReservation);
+      
     } 
     // if no problems, create new reservation
     const newReservation = {id : `R#${Date.now() * 100}`, ...r}

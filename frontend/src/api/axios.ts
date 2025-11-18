@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export const BASE_URL = "http://localhost/BatCave/backend/public";
+export const BASE_URL = "http://localhost/batcave/backend/public";
+// export const BASE_URL = "http://localhost/BatCave/backend/public";
+
 // assuming BASE_URL is http://localhost:8080
 
 export const axiosMain = axios.create({
