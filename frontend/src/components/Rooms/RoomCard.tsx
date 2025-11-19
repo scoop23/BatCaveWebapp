@@ -155,7 +155,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
     if (!userId) return;
     const fetchUserReservation = async () => {
       const response = await apiPost("/reservations-by-user", { userId });
-      const formatted = response?.data.map((r: Record<string, string | number>) => ({
+      const formatted = response?.data.map((r: Record<string, string | number>) => ({ // the 
         id: r.id,
         userId: r.user_id,
         date: r.date,
@@ -187,7 +187,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
 
   // INSERT RESERVATIONS
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+    // e.preventDefault() 
+    // turn on comment for testing
     if (!form.date) {
       setForm({...form , feedBack : 'Please select a date'})
       return
@@ -218,6 +219,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
       }
       if(res.newReservation) {
         await apiPost('/reservations' , res.newReservation)
+
       }
       // setPaxLeft(res.totalPax);
       setForm({...form , feedBack : 'Reserved successfully'});

@@ -24,7 +24,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
-  // check if mobile
+  // check if mobile 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
@@ -45,8 +45,10 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
       exit={{ opacity: 0 }}
       transition={{ type : "spring", stiffness : 300, damping : 25 }}
       className="fixed inset-0 z-2 flex items-center justify-center"
-      style={{  }}
-    >
+      // style={{ filter : "url(#goo)" }}
+    > 
+    {/* goo type sh */}
+    
 
       <motion.div
       initial={{ opacity : 0 , backdropFilter : "blur(0px)" }}
@@ -150,7 +152,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
               aria-label="reservation-type"
               className='block w-full px-4 py-3 border-2 border-amber-600 rounded-lg bg-amber-50 text-amber-900 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-300 transition font-semibold'
               id='reserve-type'
-              name='reserveType'
+              // name='reserveType' 
               value={form.type}
               onChange={(e) => setForm({...form , type : e.target.value as RoomType})}
               required

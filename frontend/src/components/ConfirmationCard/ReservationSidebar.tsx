@@ -41,9 +41,9 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
   }, [reservations]);
 
   const sidebarVariants = {
-    hidden: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: 400 },
-    visible: isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 },
-    exit: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: 400 },
+    hidden: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: -400 },
+    visible: isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: -300 },
+    exit: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: -500 },
   }
 
   const backdropVariants = {
@@ -53,8 +53,27 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
   }
 
   return (
-
+    <>
+    <svg style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feGaussianBlur in="goo" stdDeviation="1" result="shadow" />
+              <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+              <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+              <feComposite in2="shadow" in="goo" result="goo" />
+              <feComposite in2="goo" in="SourceGraphic" result="mix" />
+          </filter>
+          <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feComposite in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+          </defs>
+        </svg>
     <AnimatePresence>
+      
       {isOpen && (
         <>
           {/* Backdrop - only on mobile or always for modal feel */}
@@ -67,6 +86,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
               exit="exit"
               onClick={onClose}
               className="fixed inset-0 bg-black/40 z-40"
+              style={{ filter : "url(#goo)" }}
             />
           )}
 
@@ -83,6 +103,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
                 ? 'inset-0 mx-4 my-12 rounded-xl max-w-md'
                 : 'right-0 top-0 bottom-0 w-96 rounded-l-xl'
             }`}
+
           >
             {/* Header */}
             <div className="p-4 border-b border-amber-700">
@@ -166,7 +187,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
         </>
       )}
     </AnimatePresence>
-
+    </>
     // <div className='flex w-full h-full bg-red-600 z-10 gap-10'>
     //   {
     //     dateStats.map((stats, i) => (
@@ -194,6 +215,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
     //     ))
     //   }
     // </div>
+    
   )
 }
 

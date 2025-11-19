@@ -5,8 +5,6 @@ import NavBar from "../components/Navigation/NavBar";
 import localFont from 'next/font/local';
 import Footer from "../components/Footer/Footer";
 import Wave from 'react-wavify'
-import { Variants } from "motion";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,27 +35,6 @@ const Cinzel = localFont({
   variable : '--font-Cinzel'
 })
 
-  //  animation variants
- const animationVariant : Variants = {
-    hidden : {
-      y : -200, opacity : 0
-    },
-    scrollView : {
-      y : 0, opacity : 1,
-      transition : { duration : 0.8 , ease : "easeInOut" }
-    }
-  }
-  
-  const animationVariant2 : Variants = {
-    hidden : {
-      scale : 0.4, opacity : 0
-    },
-    scrollView : {
-      scale : 1 , opacity : 1,
-      transition : { type : "spring" , stiffness : 120, damping : 20 }
-    }
-  }
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,6 +44,24 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
+          <defs>
+            <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feGaussianBlur in="goo" stdDeviation="1" result="shadow" />
+              <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+              <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+              <feComposite in2="shadow" in="goo" result="goo" />
+              <feComposite in2="goo" in="SourceGraphic" result="mix" />
+          </filter>
+          <filter id="goo">
+              <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+              <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+              <feComposite in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+          </defs>
+        </svg>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased ${alegreya.variable} `}  style={{
         // height : "1339px"
