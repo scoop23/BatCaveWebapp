@@ -91,7 +91,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   const [reservationId, setReservationId] = useState<string | null>(null)
   const [reservationData, setReservationData] = useState<Reservations[] | null>(null)
   const [form, setForm] = useState<ReservationFormState>({
-    date : "",
+    date : dayjs().format("YYYY-MM-DD"),
     start : "13:00",
     end : "22:00",
     pax : 1,
@@ -185,7 +185,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   const currentReservation = useMemo(() => {
     if (!reservationData || !reservationId) return null
     return reservationData.find((r) => r.id === reservationId)
-  }, [reservationData, reservationId])
+  }, [reservationData, reservationId]);
 
   // If userId not loaded yet, show UserShow
   if (userId === null) return <UserShow onSaveUser={onSaveUser} />
@@ -235,7 +235,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
     }
   }
   
-  
+  console.log(reservationData)
 
   return (
     <div className='w-full max-w-[1100px] flex flex-col justify-center items-center'>
@@ -259,9 +259,9 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
               <div>
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold text-amber-50">{room.name}</h3>
+                    <h3 className="text-2xl font-bold text-amber-50">{room.name.split('"')}</h3>
                     <p className="text-sm text-amber-200 mt-1">Capacity: <span className="font-semibold">{room.capacity}</span> pax</p>
-                    <p className="text-sm text-amber-200 mt-1">{room.reservation.length} reservation{room.reservation.length !== 1 ? 's' : ''}</p>
+                    <p className="text-sm text-amber-200 mt-1">{room.reservation.length} total reservation{room.reservation.length !== 1 ? 's' : ''} in this room.</p>
                   </div>
                   <div className="text-right">
                     <div className="inline-flex items-center gap-2 bg-amber-700/30 text-amber-50 px-3 py-1 rounded-full">
@@ -273,7 +273,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
 
                 <div className="mt-4">
                   <div className="flex items-center justify-between">
-                    <div className="text-sm text-amber-300">Pax left</div>
+                    <div className="text-sm text-amber-300">Pax left on {dayjs(form.date).format("MMMM DD, YYYY")}</div>
                     <div className="text-xs text-amber-300">{paxLeft}/{room.capacity}</div>
                   </div>
 
@@ -326,4 +326,4 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   )
 }
 
-export default RoomCard
+export default RoomCard;
