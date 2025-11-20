@@ -37,13 +37,13 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
     .map(([date , data]) => ({
       date,
       ...data
-    })) // for each [date, data] destructure the date and the data an move them in an object 
+    })) // for each [date, data] destructure the date and the data and move them in an object 
   }, [reservations]);
 
   const sidebarVariants = {
-    hidden: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: -400 },
-    visible: isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: -300 },
-    exit: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: -500 },
+    hidden: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: -100 },
+    visible: isMobile ? { opacity: 1, y: 0, x : 0 } : { opacity: 1, x: 375 },
+    exit: isMobile ? { opacity: 0, y: 100 } : { opacity: 0, x: -100 },
   }
 
   const backdropVariants = {
@@ -54,7 +54,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
 
   return (
     <>
-    <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <svg style={{ position: "absolute", width: 0, height: 0 }}>
           <defs>
             <filter id="goo">
               <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
@@ -85,7 +85,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
               animate="visible"
               exit="exit"
               onClick={onClose}
-              className="fixed inset-0 bg-black/40 z-40"
+              className="fixed inset-0 bg-black/40 z-1"
               style={{ filter : "url(#goo)" }}
             />
           )}
@@ -98,12 +98,13 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
             animate="visible"
             exit="exit"
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className={`fixed z-50 bg-gradient-to-b from-amber-900 to-amber-800 text-amber-50 shadow-2xl ${
+            className={`relative max-h-[500px] h-[500px] ${isMobile ? 'z-2' : '-z-1'} bg-gradient-to-b from-amber-900 to-amber-800  text-amber-50 shadow-2xl ${
               isMobile
-                ? 'inset-0 mx-4 my-12 rounded-xl max-w-md'
-                : 'right-0 top-0 bottom-0 w-96 rounded-l-xl'
+                ? 'inset-0 mx-4 my-12 rounded-xl max-w-md w-200'
+                : 'right-0 top-0 bottom-0 w-96 rounded-r-xl'
             }`}
-
+            // style={{ filter : "url(#goo)" }} //make it gooey 
+            
           >
             {/* Header */}
             <div className="p-4 border-b border-amber-700">
@@ -120,7 +121,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto h-full p-4 space-y-3">
+            <div className="overflow-y-auto h-full p-4">
               {dateStats.length === 0 ? (
                 <div className="text-center text-amber-100 py-8">
                   <p className="text-sm">No reservations yet</p>
@@ -175,14 +176,16 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({
                   </motion.div>
                 ))
               )}
-            </div>
-
-            {/* Footer */}
-            <div className="p-4 border-t border-amber-700 bg-amber-900/30">
+              <div className={`absolute p-4 border-t border-amber-700 bg-amber-900/30 bottom-0 left-30`}>
               <p className="text-xs text-amber-100 text-center">
                 Total reservations: <span className="font-bold">{reservations.length}</span>
               </p>
             </div>
+            </div>
+
+            {/* Footer */}
+
+            
           </motion.div>
         </>
       )}

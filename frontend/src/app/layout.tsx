@@ -44,6 +44,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+      </head>
+      
+      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased ${alegreya.variable} `}  style={{
+        // height : "1339px"
+        background : "#967259"
+      }}>
         <svg style={{ position: "absolute", width: 0, height: 0 }}>
           <defs>
             <filter id="goo">
@@ -62,11 +69,6 @@ export default function RootLayout({
             </filter>
           </defs>
         </svg>
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased ${alegreya.variable} `}  style={{
-        // height : "1339px"
-        background : "#967259"
-      }}>
       <NavBar/>
 
       <Wave 

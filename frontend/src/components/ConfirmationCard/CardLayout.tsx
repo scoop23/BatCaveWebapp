@@ -11,7 +11,7 @@ const CardLayout: React.FC<CardLayout> = ({ children }) => {
   const cardAnimation : Variants = {
     hidden : {
       height : 20,
-      scale : 0.3,
+      scale : 0.9,
       opacity : 0.9
     },
     animate : {

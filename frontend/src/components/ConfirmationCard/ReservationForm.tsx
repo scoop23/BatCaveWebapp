@@ -1,9 +1,9 @@
 import React from 'react'
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { ReservationFormState, RoomType, Reservations } from '../Rooms/RoomCard';
 import ReservationSidebar from './ReservationSidebar';
 import { useState, useEffect } from 'react';
-
+import '../../app/globals.css'
 // const [date, setDate] = useState('')
 //   const [start, setStart] = useState('13:00')
 //   const [end, setEnd] = useState('22:00')
@@ -37,42 +37,46 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
   }
 
 
+  const reservationVariant : Variants = {
+    animate : !isMobile ? { x : -100 , opacity : 1 } : { x : 0 , opacity : 1},
+  }
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity : 0 }}
+      animate={{ opacity : 1 }}
+      exit={{ opacity : 0 }}
       transition={{ type : "spring", stiffness : 300, damping : 25 }}
       className="fixed inset-0 z-2 flex items-center justify-center"
-      // style={{ filter : "url(#goo)" }}
     > 
     {/* goo type sh */}
     
 
       <motion.div
-      initial={{ opacity : 0 , backdropFilter : "blur(0px)" }}
-      animate={{ opacity : 1, backdropFilter : "blur(20px)" }}
-      exit={{ opacity : 0, backdropFilter : "blur(0px)"}}
-      transition={{ duration : 1 , ease : "easeInOut"}}
-        className="absolute inset-0 bg-black/50"
+        initial={{ opacity : 0 , backdropFilter : "blur(0px)" }}
+        animate={{ opacity : 1, backdropFilter : "blur(20px)" }}
+        exit={{ opacity : 0, backdropFilter : "blur(0px)"}}
+        transition={{ duration : 1 , ease : "easeInOut"}}
+        className="absolute inset-0 bg-black/50 -z-1"
         onClick={() => setShowReservationForm(false)}
       />
 
       <motion.form
         initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        animate={ !sidebarOpen ? { y: 20, opacity: 1 } : "animate"}
         exit={{ opacity : 0, scale : 0.9 }}
+        variants={reservationVariant}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         onSubmit={handleSubmit}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-xl mx-4 p-6 bg-[var(--color-coffee-medium)] rounded-xl border-4 border-amber-600 shadow-2xl space-y-4"
+        className="reservation-form absolute w-full max-w-xl mx-4 p-6 bg-[var(--color-coffee-medium)] rounded-xl border-4 border-amber-600 shadow-2xl space-y-4"
+        // style={{ filter : "url(#goo)" }} // make it gooey
       >
         {/* Sidebar Toggle Button */}
         <button
           type="button"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="absolute top-3 left-3 text-amber-50 bg-amber-700/30 hover:bg-amber-700/50 rounded-full p-2 transition"
+          className="top-3 left-3 text-amber-50 bg-amber-700/30 hover:bg-amber-700/50 rounded-full p-2 transition"
           aria-label="Toggle reservation dates sidebar"
           title="View reserved dates"
         >
@@ -192,6 +196,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
           <p className="text-sm">{form.feedBack}</p>
         </div>
       )}
+      
       </motion.form>
 
       {/* Reservation Sidebar */}
