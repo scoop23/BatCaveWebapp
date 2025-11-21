@@ -23,6 +23,24 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->exec("PRAGMA foreign_keys = ON;");
 
+    // ALTER THE TABLE
+    // $currentColumns = $db->query('
+    //     PRAGMA table_info(Reservations);
+    // ')->fetchAll(PDO::FETCH_ASSOC);
+    
+    // $hasTotalPrice = false;
+
+    // foreach($currentColumns as $column) {
+    //     if($column['name'] === 'totalPrice') {
+    //         $hasTotalPrice = true;
+    //         break;
+    //     }
+    // }
+
+    // if(!$hasTotalPrice) {
+    //     $db->exec("ALTER TABLE Reservations ADD COLUMN totalPrice INTEGER;");
+    // }
+
     // -------------------- 
     // Tables
     $db->exec("
@@ -67,9 +85,14 @@ try {
     $method = $_SERVER['REQUEST_METHOD'];
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-    $basePath = '/batcave/backend/public';
-    $route = '/' . trim(substr($uri, strlen($basePath)), '/'); // normalize
-    $route = $route === '/' ? '/' : '/' . ltrim($route, '/'); // ensure starting slash
+    // $basePath = '/batcave/backend/public';
+    // $route = '/' . trim(substr($uri, strlen($basePath)), '/'); // normalize
+    // $route = $route === '/' ? '/' : '/' . ltrim($route, '/'); // ensure starting slash
+
+    $basePath = rtrim($_SERVER['SCRIPT_NAME'], '/index.php');
+    $route = '/' . trim(substr($uri, strlen($basePath)), '/');
+    $route = $route === '/' ? '/' : '/' . ltrim($route, '/');
+
 
     // -------------------- Routes
     if ($route === '/rooms' && $method === 'GET') {
@@ -87,11 +110,12 @@ try {
         echo json_encode($reservationModel->getReservations());
         exit;
     }
-
+    
     if ($route === '/reservations-update' && $method === 'POST') {
-        $data = json_decode(file_get_contents('php://input'), true);
-    }
+        $data = json_decode(file_get_contents('php://input') , true);;
         
+    }
+
     if ($route === '/reservations-by-user' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
         $userId = $data['userId'] ?? null;
@@ -130,4 +154,3 @@ try {
     echo json_encode(["error" => "Connection failed: " . $e->getMessage()]);
     exit;
 }
-

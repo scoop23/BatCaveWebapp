@@ -68,8 +68,9 @@ const AvailableRooms = () => {
   useEffect(() => {
     // getting data from database now.
     const fetchRoomData = async () => {
-      const roomResponse = await axios.get("http://localhost/batcave/backend/public/rooms")
-      const reservationResponse = await axios.get("http://localhost/batcave/backend/public/reservations");
+      // const roomResponse = await axios.get("http://localhost/batcave/backend/public/rooms")
+      const roomResponse = await apiGet("/rooms");
+      const reservationResponse = await apiGet("/reservations");
       const formattedReservations : Reservations[] = reservationResponse.data.map((r : any, i : number) => ({
         roomId : r.room_id,
         userId : r.user_id,
