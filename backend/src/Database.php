@@ -10,7 +10,7 @@ class Database {
 
     public function connect() {
         // Render Postgres credentials
-        $host = 'dpg-d4g2nim3jp1c73dcdp3g-a.render.com';
+        $host = 'dpg-d4g2nim3jp1c73dcdp3g-a.singapore-postgres.render.com';
         $port = 5432;
         $dbname = 'batcave_vcxd';
         $user = 'baste';
