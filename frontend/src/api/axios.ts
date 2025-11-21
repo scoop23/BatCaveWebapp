@@ -3,6 +3,7 @@ import axios from 'axios';
 // export const BASE_URL = "http://localhost/batcave/backend/public";
 // export const BASE_URL = "http://localhost/BatCave/backend/public";
 export const BASE_URL = "https://batcavewebappbackend.onrender.com";
+// export const BASE_URL = "http://localhost:80/batcave/backend/public";
 
 // assuming BASE_URL is http://localhost:8080
 
