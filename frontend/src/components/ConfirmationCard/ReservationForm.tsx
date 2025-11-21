@@ -25,7 +25,12 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
   const [isMobile, setIsMobile] = useState(false)
   const [loading , setIsLoading] = useState(false);
 
-  
+  const MINIMUM_FEE = 75; // minimum charge if booking < 2 hours
+const EQUIPMENT_FEES = [
+  { name: "Projector", fee: 150 }, 
+  { name: "Speaker and Mic", fee: 150 }
+];
+
   // check if mobile 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 769)
@@ -195,6 +200,14 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
           >
             ✕ Cancel
           </button>
+        </div>
+
+        <div className="mt-4 p-4 bg-amber-800/30 rounded-lg text-amber-50">
+          <h4 className="font-semibold mb-2">Fees:</h4>
+          <p className="text-sm">Minimum Fee: ₱{MINIMUM_FEE.toFixed(2)} (Charged if booking is less than 2 hours)</p>
+          {EQUIPMENT_FEES.map((eq, i) => (
+            <p key={i} className="text-sm">Equipment Fee: ₱{eq.fee.toFixed(2)} per hour - {eq.name}</p>
+          ))}
         </div>
 
       {form.feedBack && (
