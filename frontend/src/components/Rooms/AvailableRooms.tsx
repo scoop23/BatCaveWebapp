@@ -71,13 +71,13 @@ const AvailableRooms = () => {
       // const roomResponse = await axios.get("http://localhost/batcave/backend/public/rooms")
       const roomResponse = await apiGet("/rooms");
       const reservationResponse = await apiGet("/reservations");
-      const formattedReservations : Reservations[] = reservationResponse?.data.map((r : any, i : number) => ({
+      const formattedReservations : Reservations[] = reservationResponse.data.map((r : any, i : number) => ({
         roomId : r.room_id,
         userId : r.user_id,
         ...r
       }))
 
-      const roomsWithReservations = roomResponse?.data.map((room : Room) => ({
+      const roomsWithReservations = roomResponse.data.map((room : Room) => ({
         ...room,
         reservation : formattedReservations.filter((r : Reservations) => r.roomId === room.id)
       }));

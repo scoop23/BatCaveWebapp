@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-// export const BASE_URL = "http://localhost/batcave/backend/public";
-// export const BASE_URL = "http://localhost/BatCave/backend/public";
-export const BASE_URL = "https://batcavewebappbackend.onrender.com";
-// export const BASE_URL = "http://localhost:80/batcave/backend/public";
+// export const BASE_URL = "http://localhost/batcave/backend/public"; //local
+// export const BASE_URL = "http://localhost/BatCave/backend/public"; // local linux
+export const BASE_URL = "https://batcavewebappbackend.onrender.com"; // deployed
 
 // assuming BASE_URL is http://localhost:8080
 
