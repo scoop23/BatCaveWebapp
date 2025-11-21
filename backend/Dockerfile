@@ -1,12 +1,19 @@
 FROM php:8.2-apache
 
-# Install SQLite support
-RUN docker-php-ext-install pdo_sqlite
+# Install system dependencies needed for pdo_sqlite
+RUN apt-get update && \
+    apt-get install -y \
+      libsqlite3-dev \
+      pkg-config \
+      git \
+      unzip \
+      && docker-php-ext-install pdo_sqlite \
+      && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache rewrite for routing
 RUN a2enmod rewrite
 
-# Copy public files to Apache root
+# Copy public files
 COPY public/ /var/www/html/
 
 # Copy PHP source files
@@ -15,7 +22,7 @@ COPY src/ /var/www/src/
 # Copy SQLite database
 COPY database/ /var/www/database/
 
-# Ensure SQLite folder is writable
+# Make SQLite folder writable
 RUN chmod -R 775 /var/www/database
 
 EXPOSE 80
