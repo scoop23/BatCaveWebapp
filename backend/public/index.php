@@ -121,8 +121,8 @@ try {
     }
     
     if ($route === '/reservations-update' && $method === 'POST') {
-        $data = json_decode(file_get_contents('php://input') , true);;
-        
+        $data = json_decode(file_get_contents('php://input') , true);
+
     }
 
     if ($route === '/reservations-by-user' && $method === 'POST') {

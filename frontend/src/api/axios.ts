@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// export const BASE_URL = "http://localhost/batcave/backend/public"; //local
+// export const BASE_URL = "http://localhost/batcave/backend/public"; //local DELETE THE CORS ON THE INDEX.PHP ON THE BACKEND FOR THIS TO WORK
 // export const BASE_URL = "http://localhost/BatCave/backend/public"; // local linux
 export const BASE_URL = "https://batcavewebappbackend.onrender.com"; // deployed
 
