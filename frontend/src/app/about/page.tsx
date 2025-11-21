@@ -5,18 +5,28 @@ import Image from 'next/image'
 import { Variants } from 'framer-motion'
 
 const About = () => {
-  const containerVariant = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.2, delayChildren: 0.2 }
+
+const itemVariant: Variants = {
+  hidden: { opacity: 0, y: 20, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { 
+      type: "spring", // literal type is fine now
+      stiffness: 120, 
+      damping: 20 
     }
   }
+};
 
-  const itemVariant = {
-    hidden: { opacity: 0, y: 20, scale: 0.9 },
-    visible: { opacity: 1, y: 0, scale : 1, transition: { type : "spring" } }
+const containerVariant: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2, delayChildren: 0.2 }
   }
+};
 
   return (
     <div className="w-full bg-linear-to-r from-[var(--color-white-choco)] to-white">
@@ -195,7 +205,7 @@ const About = () => {
           className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
           variants={itemVariant}
         >
-          Visit us today and discover why we're more than just a cafe—we're a community gathering place where memories are brewed fresh every day.
+          Visit us today and discover why we&apos;re more than just a cafe—we&apos;re a community gathering place where memories are brewed fresh every day.
         </motion.p>
         <motion.a
           href="/rooms"
