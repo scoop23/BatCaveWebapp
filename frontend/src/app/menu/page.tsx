@@ -8,15 +8,15 @@ import bgImage from '../../../public/images/bg-menu.png'
 
 const Menu = () => {
   return (
-    <div className='menu-container w-full relative'
+    <div className='menu-container w-full w-full relative mt-[-40px]'
     style={{ 
     fontFamily: "var(--font-inter)",
     backgroundImage: "url('/images/bg-menu.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundAttachment: "fixed",
-    position : "absolute",
-    top : "130px"
+    // position : "absolute",
+    // top : "130px"
   }}>
       <Section isAnimated={false}
       style={{ display : "flex", gap : "30px", justifyContent : "center", marginTop : "15px", padding : "20px", zIndex : "-1000" , paddingTop : "40px"}} className='menu-inner-container md:flex-row' >
@@ -25,7 +25,7 @@ const Menu = () => {
           <MenuSideBar categories={dummyCategories} /> {/* for visualization only */}
         </div>
 
-        <div className='main-menu h-full'>
+        <div className='main-menu w-full h-full'>
           <MainMenu data={coffeeProducts}/> {/* for visualization only */}
         </div>
       </Section>

@@ -13,23 +13,35 @@ interface MainMenuProps {
 const MainMenu : React.FC<MainMenuProps> = ({ data }) => {
   console.log(data[0].cover)
   return (
-    <div className='menu'>
+    <div className='menu max-w-[1300px] w-full mx-auto'>
       <SimpleBar
-        style={{ backdropFilter : "blur(10px)", borderRadius : "20px", border : "2px solid #783D18"}}
+        style={{ backdropFilter: "blur(10px)", borderRadius: "20px", border: "2px solid #783D18" }}
         autoHide={true}
-        className='relative w-full max-w-[1200px] h-[750px] grid sm:grid-cols-1 md:grid-cols-2 gap-4'
+        className="relative w-full max-w-[1200px] h-[750px]"
       >
-        <section className='menu-container relative h-[650px] grid sm:grid-cols-1 md:grid-cols-3 p-7 gap-4 place-items-center' style={{ borderRadius : "20px"}}>
-          {
-            data.map((d , i) => {
-              const coverPath = getImagePath(d.cover)
-              return (
-                <MenuCard key={i} cover={coverPath} description={d.description} value={d.value}/>
-              )
-            })
-          }
+        {/* Put grid INSIDE this wrapper, not on the SimpleBar itself */}
+        <section
+          className="    menu-container relative 
+    grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 
+    p-7 gap-4 place-items-center
+    md:h-[650px]   /* height only on md+ */
+"
+          style={{ borderRadius: "20px" }}
+        >
+          {data.map((d, i) => {
+            const coverPath = getImagePath(d.cover)
+            return (
+              <MenuCard 
+                key={i}
+                cover={coverPath}
+                description={d.description}
+                value={d.value}
+              />
+            )
+          })}
         </section>
       </SimpleBar>
+
     </div>
   )
 }
