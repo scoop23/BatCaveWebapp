@@ -29,6 +29,8 @@ export default function AdminReservationsPage() {
     setError(null)
     try {
       const payload = { ...updated }
+      console.log(payload)
+
       const resp = await apiPost('/reservations-update', payload)
       console.log(resp);
       if (resp && resp.success) {

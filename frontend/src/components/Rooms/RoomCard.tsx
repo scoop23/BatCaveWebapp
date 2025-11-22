@@ -246,12 +246,13 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
         setReservationId(res.reservationId)
       }
       if(res.newReservation) {
+        console.log(currentPrice)
         const { start, end , totalPrice ,...data } = res.newReservation
         const mappedPayload = {
           ...data,
           start_time : start,
           end_time : end,
-          totalPrice
+          totalprice : currentPrice
         }
         console.log(mappedPayload)
         const e = await apiPost('/reservations' , mappedPayload)

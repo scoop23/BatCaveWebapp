@@ -4,6 +4,7 @@ import { ReservationStatus } from "../Rooms/RoomCard"
 import { statusOptions } from "@/src/app/admin/reservations/page"
 import { motion } from 'framer-motion';
 import dayjs from "dayjs";
+import { Inclusive_Sans } from "next/font/google";
 
 interface EditModalProps {
   reservation : Reservations
@@ -12,8 +13,12 @@ interface EditModalProps {
 }
 
 export const EditModal : React.FC<EditModalProps> = ({ reservation, onClose, onSave }) => {
-  const [form, setForm] = useState<any>({ ...reservation })
-
+  const [form, setForm] = useState<any>({
+    ...reservation,
+    start_time: reservation.start,
+    end_time: reservation.end,
+    // remove phone if backend doesn't need it
+  });
   const overlayVariant = {
     hidden : { opacity : 0 },
     animate : { opacity : 1},
@@ -25,7 +30,7 @@ export const EditModal : React.FC<EditModalProps> = ({ reservation, onClose, onS
     animate : { opacity : 1 , scale : 1},
     exit : { opacity : 0 , scale : 0.9}
   }
-  
+
   return (
     <motion.div variants={overlayVariant} initial={"hidden"} animate={"animate"} exit={"exit"} className="fixed text-black inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/40" onClick={onClose} />
