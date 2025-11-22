@@ -62,6 +62,10 @@ const ConfirmedReservation: React.FC<ConfirmedReservationProps> = ({ reservation
     }
   }
 
+  const handle = () => {
+    localStorage.clear()
+  }
+
   return (
     <CardLayout>
       {reservations?.map((reservation, i) => {
@@ -77,6 +81,7 @@ const ConfirmedReservation: React.FC<ConfirmedReservationProps> = ({ reservation
             className="p-6 rounded-lg shadow-lg flex flex-col gap-4 max-w-[800px] w-full"
             style={{ backgroundColor: 'var(--color-coffee-dark)', borderLeft: '4px solid #D4A574' }}
           >
+              <button onClick={() => handle()}>click here to reset user</button>
             <div
               className="mb-4 pb-4"
               style={{ background: 'var(--color-coffee-medium)', padding: '20px', borderRadius: '20px' }}
