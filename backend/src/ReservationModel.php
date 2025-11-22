@@ -18,7 +18,9 @@ class ReservationModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function changeReservationStatus(string $reservationId, string $newStatus): array {
+
+    public function createReservation(array $data): array {
+        $stmt = $this->pdo->pationStatus(string $reservationId, string $newStatus): array {
     // Make sure $newStatus is valid
       $validStatuses = ['Pending', 'Ongoing', 'Completed', 'No-show', 'Cancelled'];
       if (!in_array($newStatus, $validStatuses)) {
@@ -53,13 +55,58 @@ class ReservationModel {
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function updateReservations(array $data): array 
+    {
+        try {
+            $stmt = $this->pdo->prepare("
+                UPDATE Reservations
+                SET 
+                    date = :date,
+                    phone = :phone,
+                    start = :start_time,
+                    end = :end_time,
+                    pax = :pax,
+                    type = :type,
+                    status = :status,
+                    room_id = :roomId,
+                    user_id = :userId
+                WHERE id = :id
+            ");
+
+            $stmt->execute([
+                ':id' => $data['id'],
+                ':date' => $data['date'],
+                ':phone' => $data['phone'],
+                ':start_time' => $data['start_time'],
+                ':end_time' => $data['end_time'],
+                ':pax' => $data['pax'],
+                ':type' => $data['type'],
+                ':status' => $data['status'],
+                ':roomId' => $data['roomId'],
+                ':userId' => $data['userId'],
+            ]);
+
+            return [
+                "success" => true,
+                "message" => "Reservation updated successfully."
+            ];
+
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "error" => $e->getMessage()
+            ];
+        }
+    }
+
+
     public function createReservation(array $data): array {
         $stmt = $this->pdo->prepare("
             INSERT INTO Reservations (
-                id, room_id, user_id, date, start_time, end_time, pax, type, status, created_at
+                id, room_id, user_id, date, start, end, pax, type, status, created_at
             )
             VALUES (
-                :id, :room_id, :user_id, :date, :start_time, :end_time, :pax, :type, :status, :created_at
+                :id, :room_id, :user_id, :date, :start, :end, :pax, :type, :status, :created_at
             )
         ");
         $stmt->execute([
@@ -67,8 +114,8 @@ class ReservationModel {
             ':room_id' => $data['roomId'],
             ':user_id' => $data['userId'],
             ':date' => $data['date'],
-            ':start_time' => $data['start_time'],
-            ':end_time' => $data['end_time'],
+   /         ':start' => $data['start'],
+            ':end' => $data['end'],
             ':pax' => $data['pax'],
             ':type' => $data['type'],
             ':status' => $data['status'],
@@ -84,4 +131,5 @@ class ReservationModel {
         $stmt->execute([':id' => $id]);
         return ['success' => true, 'message' => 'Reservation deleted'];
     }
+}
 }
