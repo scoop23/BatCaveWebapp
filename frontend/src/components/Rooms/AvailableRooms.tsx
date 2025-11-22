@@ -168,8 +168,9 @@ const AvailableRooms = () => {
       ) // check if the current room which is a function that we will input is the same date and check if it has a study type, then check if it overlaps with the current room that we have that is a function returns the ones that overlap
       if(overlappingfunction.length > 0) { // if no overlappingStudy store in database?
         return { success : false , message : "Your Function Reservation Will Overlap with Function Schedules on that Date."}
-      } 
+      }   
 
+      
     }
 
     // if no problems, create new reservation
@@ -187,7 +188,8 @@ const AvailableRooms = () => {
     //     return room;
     //   })
     // )
-    
+
+
     // if successful return the reservation ID
     // object that we will send to the user
     return { 

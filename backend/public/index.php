@@ -156,6 +156,18 @@ try {
         echo json_encode($reservationModel->getReservations());
         exit;
     }
+
+    if ($route === '/reservations' && $method === 'POST') {
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (!$data) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => 'No data sent']);
+            exit;
+        }
+        $result = $reservationModel->createReservation($data);
+        echo json_encode($result);
+        exit;
+    }
     
     if ($route === '/reservations-update' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input') , true);
@@ -178,11 +190,7 @@ try {
         exit;
     }
 
-    if ($route === '/reservations' && $method === 'POST') {
-        $data = json_decode(file_get_contents('php://input'), true);
-        echo json_encode($reservationModel->createReservation($data));
-        exit;
-    }
+    
 
     if ($route === '/users' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
