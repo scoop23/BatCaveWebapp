@@ -42,10 +42,10 @@ export const EditModal : React.FC<EditModalProps> = ({ reservation, onClose, onS
             <label className="text-xs font-semibold">User Name</label>
             <input className="w-full border px-2 py-2 rounded" value={form.userName || ''} onChange={(e) => setForm({ ...form, userName: e.target.value })} />
           </div>
-          <div>
+          {/* <div>
             <label className="text-xs font-semibold">Phone</label>
             <input className="w-full border px-2 py-2 rounded" value={form.phone || ''} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-          </div>
+          </div> */}
           <div>
             <label className="text-xs font-semibold">Date</label>
             <input type="date" className="w-full border px-2 py-2 rounded" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />

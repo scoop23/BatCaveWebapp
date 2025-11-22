@@ -65,7 +65,6 @@ class ReservationModel {
                 UPDATE Reservations
                 SET 
                     date = :date,
-                    phone = :phone,
                     start_time = :start_time,
                     end_time = :end_time,
                     pax = :pax,
@@ -79,7 +78,6 @@ class ReservationModel {
             $stmt->execute([
                 ':id' => $data['id'],
                 ':date' => $data['date'],
-                ':phone' => $data['phone'],
                 ':start_time' => $data['start_time'],
                 ':end_time' => $data['end_time'],
                 ':pax' => $data['pax'],
