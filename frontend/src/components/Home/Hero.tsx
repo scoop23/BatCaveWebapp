@@ -12,15 +12,14 @@ const textContainer = {
 };
 
 const textVariant = {
-  hidden: { opacity: 0, filter: "blur(4px)", y: 20 },
+  hidden: { opacity: 0, filter: "blur(4px)" as any, y: 20 },
   visible: {
     opacity: 1,
-    filter: "blur(0px)",
+    filter: "blur(0px)" as any,
     y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.8, ease: "easeOut" as any },
   },
 };
-
 
 
 const Hero  = ({  }) => {
