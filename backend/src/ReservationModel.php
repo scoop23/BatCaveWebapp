@@ -8,7 +8,7 @@ class ReservationModel {
         $this->pdo = $pdo;
     }
 
-    // --- Admin: Get all reservations ---
+    // --- Get all reservations ---
     public function getReservations(): array {
         $stmt = $this->pdo->query("
             SELECT r.*, u.name AS user_name, rm.name AS room_name, u.phone
@@ -19,7 +19,7 @@ class ReservationModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // --- Admin: Get reservations by user ---
+    // --- Get reservations by user ---
     public function getReservationsByUser(string $userId): array {
         $stmt = $this->pdo->prepare("
             SELECT r.*, u.name AS user_name, rm.name AS room_name, u.phone
@@ -32,14 +32,14 @@ class ReservationModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // --- Admin: Create reservation ---
+    // --- Create reservation ---
     public function createReservation(array $data): array {
         $stmt = $this->pdo->prepare("
             INSERT INTO Reservations (
-                id, room_id, user_id, date, start, end, pax, type, status, created_at
+                id, room_id, user_id, date, start_time, end_time, pax, type, status, created_at
             )
             VALUES (
-                :id, :room_id, :user_id, :date, :start, :end, :pax, :type, :status, :created_at
+                :id, :room_id, :user_id, :date, :start_time, :end_time, :pax, :type, :status, :created_at
             )
         ");
         $stmt->execute([
@@ -47,8 +47,8 @@ class ReservationModel {
             ':room_id' => $data['roomId'],
             ':user_id' => $data['userId'],
             ':date' => $data['date'],
-            ':start' => $data['start'],
-            ':end' => $data['end'],
+            ':start_time' => $data['start_time'],
+            ':end_time' => $data['end_time'],
             ':pax' => $data['pax'],
             ':type' => $data['type'],
             ':status' => $data['status'],
@@ -58,16 +58,16 @@ class ReservationModel {
         return ['success' => true, 'message' => 'Reservation created successfully', 'reservationId' => $data['id']];
     }
 
-    // --- Admin: Update reservation ---
-    public function updateReservations(array $data): array {
+    // --- Update reservation ---
+    public function updateReservation(array $data): array {
         try {
             $stmt = $this->pdo->prepare("
                 UPDATE Reservations
                 SET 
                     date = :date,
                     phone = :phone,
-                    start = :start_time,
-                    end = :end_time,
+                    start_time = :start_time,
+                    end_time = :end_time,
                     pax = :pax,
                     type = :type,
                     status = :status,
@@ -102,7 +102,7 @@ class ReservationModel {
         }
     }
 
-    // --- Admin: Update reservation status ---
+    // --- Update reservation status ---
     public function updateReservationStatus(string $reservationId, string $newStatus): array {
         $validStatuses = ['Pending', 'Ongoing', 'Completed', 'No-show', 'Cancelled'];
         if (!in_array($newStatus, $validStatuses)) {
@@ -122,7 +122,7 @@ class ReservationModel {
         return ['success' => true, 'message' => 'Reservation status updated'];
     }
 
-    // --- Admin: Delete reservation ---
+    // --- Delete reservation ---
     public function deleteReservation(string $id): array {
         $stmt = $this->pdo->prepare("DELETE FROM Reservations WHERE id = :id");
         $stmt->execute([':id' => $id]);

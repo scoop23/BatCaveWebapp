@@ -205,6 +205,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
 
   // INSERT RESERVATIONS
   async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
     // turn on comment for testing
     if (!form.date) {
       setForm({...form , feedBack : 'Please select a date'})
@@ -253,7 +254,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
           totalPrice
         }
         console.log(mappedPayload)
-        await apiPost('/reservations' , mappedPayload)
+        const e = await apiPost('/reservations' , mappedPayload)
+        console.log(e)
       }
       // setPaxLeft(res.totalPax);
       setForm({...form , feedBack : 'Reserved successfully'});
