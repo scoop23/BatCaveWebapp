@@ -1,40 +1,32 @@
 "use client"
-import React from 'react'
-import { motion } from 'framer-motion'
-import '../../app/globals.css'
+import React from "react"
+import { motion } from "framer-motion"
+import "../../app/globals.css"
 
 interface CategoryProps {
-  category? : string
+  category: string
+  active?: boolean
+  onClick?: () => void
 }
 
-const CategoryButton : React.FC<CategoryProps> = ({ category }) => {
-
+const CategoryButton: React.FC<CategoryProps> = ({ category, active, onClick }) => {
   return (
-    <motion.div
-      className="category-btn cursor-pointer w-[200px] h-[70px] pl-4 items-center flex"
-        style={{
-        borderRadius: "10px",
-        backgroundColor: "var(--color-accent)",
-        boxShadow: "var(--shadow-custom)",
-        }}
-      initial={{ backgroundColor: "var(--color-accent)" }}
-      whileHover={{
-      backgroundColor: "var(--color-coffee-medium)",
-      transition: { duration: 0.2 }, // background changes first
+    <motion.button
+      onClick={onClick}
+      className={`category-btn flex items-center pl-4 h-12 rounded-lg select-none text-sm font-semibold ${active ? "active" : ""}`}
+      initial={false}
+      whileHover={{ x: 6 }}
+      style={{
+        background: active ? "linear-gradient(90deg, rgba(202,167,123,0.09), rgba(202,167,123,0.03))" : "transparent",
+        border: "1px solid rgba(202,167,123,0.12)",
+        color: active ? "" : "#e6dfd6",
+        boxShadow: "0 6px 16px rgba(0,0,0,0.45)",
+        transition: "all 160ms ease"
       }}
+      aria-pressed={active}
     >
-      <motion.p
-        className="font-bold"
-        initial={{ color: "var(--color-coffee-dark)" }}
-        whileHover={{
-          color: "#FFD580", // brighter color for text
-          transition: { delay: 0.2, duration: 0.2 }, // delay so text changes after bg
-        }}
-      >
-        {category}
-      </motion.p>
-    </motion.div>
-
+      {category}
+    </motion.button>
   )
 }
 

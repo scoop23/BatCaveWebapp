@@ -75,7 +75,7 @@ export default function RootLayout({
         {/* wrapped it in a component to conditionally generate the navbar without affecting ssr */}
         <LayoutClient>
           <NavBar/>
-          <Wave
+          {/* <Wave
             // fill="var(--color-coffee-medium)"
             fill="url(#gradient)"
             className="absolute top-0 z-1" 
@@ -93,7 +93,7 @@ export default function RootLayout({
                 <stop offset="90%" stopColor="var(--color-coffee-dark)" />
               </linearGradient>
             </defs>
-          </Wave>
+          </Wave> */}
         </LayoutClient>
 
         {children}
