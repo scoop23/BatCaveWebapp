@@ -172,7 +172,7 @@ try {
     if ($route === '/reservations-update' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input') , true);
         
-        $result = $reservationModel->updateReservations($data);
+        $result = $reservationModel->updateReservation($data);
 
         header("Content-Type : application/json");
         echo json_encode($result);
