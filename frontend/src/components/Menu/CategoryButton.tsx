@@ -17,7 +17,7 @@ const CategoryButton: React.FC<CategoryProps> = ({ category, active, onClick }) 
       initial={false}
       whileHover={{ x: 6 }}
       style={{
-        background: active ? "linear-gradient(90deg, rgba(202,167,123,0.09), rgba(202,167,123,0.03))" : "transparent",
+        background: active ? "var(--color-coffee-medium)" : "linear-gradient(90deg, rgba(202,167,123,0.09), rgba(202,167,123,0.03))",
         border: "1px solid rgba(202,167,123,0.12)",
         color: active ? "" : "#e6dfd6",
         boxShadow: "0 6px 16px rgba(0,0,0,0.45)",

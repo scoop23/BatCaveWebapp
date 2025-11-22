@@ -7,19 +7,19 @@ const deals = [
 	{
 		title: "Matcha Madness",
 		price: "₱199",
-		image: "/images/matcha-madness.png",
+		image: "/images/deals/image38.png",
 		id: "matcha-madness",
 	},
 	{
 		title: "Matcha Lovers Pack (2 Drinks)",
 		price: "₱250",
-		image: "/images/matcha-buy-green.png",
+		image: "/images/deals/image39.png",
 		id: "matcha-pack",
 	},
 	{
 		title: "New Caramel Coffee",
 		price: "₱120",
-		image: "/images/caramel-coffee.png",
+		image: "/images/deals/image40.png",
 		id: "caramel-coffee",
 	},
 ]
@@ -54,7 +54,7 @@ export default function DealsPanel() {
 							</div>
 
 							<div className="deal-actions">
-								<Link href={`/deals/${d.id}`} className="deal-cta">
+								<Link href={`/deals/${d.id}`} className="deal-cta" style={{ color : "var(--color-coffee-medium)"}}>
 									Details
 								</Link>
 								<button
@@ -80,8 +80,8 @@ export default function DealsPanel() {
 				}
 				.deals-header h3 {
 					font-family: var(--font-Cinzel);
-					color: var(--color-coffee-light);
-					font-size: 1.2rem;
+					color: var(--color-coffee-medium);
+					font-size: 4rem;
 					margin: 0;
 				}
 				.deals-sub {
@@ -171,7 +171,7 @@ export default function DealsPanel() {
 				.deal-cta {
 					background: transparent;
 					border: 1px solid rgba(202, 167, 123, 0.16);
-					color: var(--color-coffee-light);
+					color: var(--color-coffee-medium);
 					padding: 8px 10px;
 					border-radius: 8px;
 					text-decoration: none;

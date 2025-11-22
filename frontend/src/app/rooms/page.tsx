@@ -4,7 +4,7 @@ import AvailableRooms from '../../components/Rooms/AvailableRooms'
 
 const Rooms = () => {
   return (
-    <div className="p-6">
+    <div className="p-6 mt-35">
       <AvailableRooms />
     </div>
   )

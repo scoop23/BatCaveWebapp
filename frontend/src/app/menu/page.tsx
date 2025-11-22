@@ -1,34 +1,40 @@
-import MainMenu from '@/src/components/Menu/MainMenu'
-import MenuSideBar from '@/src/components/Menu/MenuSideBar'
-import Section from '@/src/components/Section'
-import React from 'react'
-import { coffeeProducts } from '@/src/components/Carousel/Card'
-import { dummyCategories } from '@/src/components/Menu/MenuSideBar'
-import bgImage from '../../../public/images/bg-menu.png'
+"use client"
+import React, { useState } from "react"
+import MainMenu from "@/src/components/Menu/MainMenu"
+import MenuSideBar from "@/src/components/Menu/MenuSideBar"
+import Section from "@/src/components/Section"
+import menuData from "@/src/data/menu.json"
 
 const Menu = () => {
+  const [filter, setFilter] = useState<string | null>(null)
+
   return (
-    <div className='menu-container w-full w-full relative mt-[-40px]'
-    style={{ 
-    // fontFamily: "var(--font-inter)",
-    // backgroundImage: "url('/images/bg-menu.png')",
-    // backgroundSize: "cover",
-    // backgroundPosition: "center",
-    // backgroundAttachment: "fixed",
-    // position : "absolute",
-    // top : "130px"
-  }}>
-      <Section isAnimated={false}
-      style={{ display : "flex", gap : "30px", justifyContent : "center", marginTop : "15px", padding : "20px", zIndex : "-1000" , paddingTop : "40px"}} className='menu-inner-container md:flex-row' >
-        <div className='menu-sidebar h-full'>
-          {/* sidbar component */}
-          <MenuSideBar categories={dummyCategories} /> {/* for visualization only */}
+    <div className="menu-container w-full relative mt-[80px]">
+      <Section
+        isAnimated={false}
+        style={{
+          display: "flex",
+          gap: "30px",
+          justifyContent: "center",
+          marginTop: "15px",
+          padding: "20px",
+          zIndex: "1",
+          paddingTop: "40px",
+          flexWrap: "wrap", // optional, prevents overflow issues
+          backgroundImage : "url('/images/cave1.jpg')",
+          backgroundSize : "130%"
+        }}
+        className="menu-inner-container md:flex-row"
+      >
+        <div className="menu-sidebar h-full flex-shrink-0">
+          <MenuSideBar setFilter={setFilter} initial={null} />
         </div>
 
-        <div className='main-menu w-full h-full'>
-          <MainMenu data={coffeeProducts}/> {/* for visualization only */}
+        <div className="main-menu w-full max-w-[960px] flex-shrink-0">
+          <MainMenu data={menuData} filter={filter} />
         </div>
       </Section>
+
     </div>
   )
 }

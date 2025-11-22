@@ -29,7 +29,7 @@ const containerVariant: Variants = {
 };
 
   return (
-    <div className="w-full bg-linear-to-r from-[var(--color-white-choco)] to-white">
+    <div className="w-full bg-linear-to-r from-[var(--color-white-choco)] to-white mt-40">
       {/* Hero Section */}
       <motion.section 
         className="max-w-6xl mx-auto px-4 py-20 text-center"
@@ -73,24 +73,32 @@ const containerVariant: Variants = {
               Every cup served and every moment shared within our walls reflects our commitment to excellence and creating meaningful experiences for our customers.
             </p>
           </motion.div>
-          <motion.div 
-            className="relative h-96 rounded-lg overflow-hidden shadow-lg"
-            variants={itemVariant}
-          >
-            <div 
-              className="w-full h-full rounded-lg"
-              style={{
-                background: 'linear-gradient(135deg, var(--color-coffee-dark), var(--color-coffee-medium))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontSize: '18px'
-              }}
+          <motion.div
+              className="relative h-96 rounded-lg overflow-hidden shadow-lg"
+              variants={itemVariant}
             >
-              Bat Cave Cafe Environment
-            </div>
-          </motion.div>
+              {/* Video background */}
+              <video
+                className="w-full h-full object-cover rounded-lg"
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                <source src="/videos/backgroundVideo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              {/* Overlay text */}
+              <div
+                className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold"
+                style={{
+                  background: 'rgba(0,0,0,0.3)', // optional overlay for readability
+                }}
+              >
+                Bat Cave Cafe Environment
+              </div>
+            </motion.div>
         </div>
       </motion.section>
 
@@ -122,7 +130,7 @@ const containerVariant: Variants = {
               <span className="text-4xl">🎯</span> Mission
             </h3>
             <p className="text-lg leading-relaxed font-medium">
-              To craft the finest coffee experience while providing a welcoming space where our community can gather, work, celebrate, and create lasting memories. We are committed to sourcing the highest quality beans, maintaining exceptional service standards, and delivering consistent excellence in every aspect of our business.
+              To offer a comfortable, inspiring space where students and friends can enjoy great coffee, delicious food, and a peaceful refuge—whether for studying, collaborating, or unwinding.
             </p>
           </motion.div>
 
@@ -137,7 +145,7 @@ const containerVariant: Variants = {
               <span className="text-4xl">✨</span> Vision
             </h3>
             <p className="text-lg leading-relaxed font-medium">
-              To become the most cherished coffee destination in our region, recognized for our premium products, exceptional hospitality, and commitment to sustainability. We envision a place where every visit is special, every customer feels valued, and our contributions to the community extend beyond coffee to create positive social impact.
+              To be Malvar’s go-to late-night café and study haven; a place students trust for excellent service, tasty drinks, and a warm welcome every time.
             </p>
           </motion.div>
         </div>

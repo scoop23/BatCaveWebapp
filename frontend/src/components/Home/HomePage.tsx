@@ -30,12 +30,6 @@ const HomePage = () => {
 
   return (
     <Section key={pathname} isAnimated={true} animationVariant={animationVariant2} navBarHeight={176} style={{ alignItems : "center", justifyContent : "center"}}> 
-        {/* 175 is the height of the navbar */}
-        <HomeSearch /> 
-          <h1 style={{
-            fontFamily : 'var(--font-Cinzel)',
-            fontSize : '35px'
-          }}>Explore Drinks</h1>
         <CarouselContainer isMobile={isMobile}/>
     </Section>
   )

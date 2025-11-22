@@ -7,27 +7,27 @@ import { useRef } from "react";
 
 export const coffeeProducts = [
   {
-    cover: "coffee1.png",
+    cover: "menufolder/imagecof22.png",
     description: "Rich and aromatic espresso with a bold flavor.",
     value: 150
   },
   {
-    cover: "coffee2.png",
+    cover: "menufolder/imagecof21.png",
     description: "Smooth latte with a creamy texture and subtle sweetness.",
     value: 180
   },
   {
-    cover: "coffee3.png",
+    cover: "menufolder/imagecof47.png",
     description: "Velvety cappuccino topped with a delicate layer of foam.",
     value: 170
   },
   {
-    cover: "coffee4.png",
+    cover: "menufolder/imagecof48.png",
     description: "Intense dark roast with deep chocolate notes.",
     value: 200
   },
   {
-    cover: "coffee5.png",
+    cover: "menufolder/imagecof50.png",
     description: "Light and fruity brew with a refreshing aroma.",
     value: 160
   }

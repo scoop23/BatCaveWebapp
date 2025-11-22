@@ -263,6 +263,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   // bg-gradient-to-b from-amber-900 to-amber-800
   return (
     <div className='w-full max-w-[1100px] bg-[var(--color-coffee-dark)] rounded-lg flex flex-col justify-center items-center'>
+      From 1:00 PM to 10:00 PM daily, we’re here to support your busy schedule.
       {currentReservation ? (
         <ConfirmedReservation reservationData={[currentReservation]} />
       ) : ( 
