@@ -27,7 +27,7 @@ const Menu = () => {
         className="menu-inner-container md:flex-row"
       >
         <div className="menu-sidebar h-full flex-shrink-0">
-          <MenuSideBar setFilter={setFilter} initial={null} />
+          <MenuSideBar setFilter={setFilter} initial={undefined} />
         </div>
 
         <div className="main-menu w-full max-w-[960px] flex-shrink-0">
