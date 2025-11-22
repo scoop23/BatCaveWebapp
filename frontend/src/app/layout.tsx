@@ -6,6 +6,7 @@ import localFont from 'next/font/local';
 import Footer from "../components/Footer/Footer";
 import Wave from 'react-wavify'
 import LayoutClient from "./LayoutClient";
+import homeBg from '../../public/images/homeBg.png';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,7 +51,7 @@ export default function RootLayout({
       
       <body className={`${geistSans.variable} ${geistMono.variable} ${InterFont.variable} ${Cinzel.variable} antialiased ${alegreya.variable} `}  style={{
         // height : "1339px"
-        background : "#967259"
+        // backgroundImage : "url('./images/homeBg.png')"
       }}>
         <svg style={{ position: "absolute", width: 0, height: 0 }}>
           <defs>

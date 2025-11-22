@@ -26,10 +26,10 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
   const [loading , setIsLoading] = useState(false);
 
   const MINIMUM_FEE = 75; // minimum charge if booking < 2 hours
-const EQUIPMENT_FEES = [
-  { name: "Projector", fee: 150 }, 
-  { name: "Speaker and Mic", fee: 150 }
-];
+  const EQUIPMENT_FEES = [
+    { name: "Projector", fee: 150 }, 
+    { name: "Speaker and Mic", fee: 150 }
+  ];
 
   // check if mobile 
   useEffect(() => {

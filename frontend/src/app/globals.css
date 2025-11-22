@@ -68,7 +68,17 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* ===== Dark Mode ===== */
+/* ===== Dark Mode ===== (white) */
+/* 
+Dark Gray (#2b2b2b) – cave ambience
+
+Gold/Yellow (#f5c542) – warm lighting accents
+
+Coffee Brown (#7a5230) – café identity
+
+Cream/White (#fdfdf8) – clean contrast */
+
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #040404; /* much deeper base */
@@ -76,11 +86,11 @@
 
     /* Dark-mode coffee tones: deeper, richer browns */
     --color-silk-cream: #c9a07a; /* warm accent */
-    --color-coffee-dark: #71402f; /* very dark coffee brown */
-    --color-coffee-medium: #3a1f15; /* deep medium brown */
+    --color-coffee-dark: #71402f; /* primary very dark coffee brown */ 
+    --color-coffee-medium: #3a1f15; /* secondary, buttons deep medium brown */
     --color-coffee-dark-wave: #3e2a1d;
     --color-white-choco: #f4efe9;
-    --color-accent: #daa567;
+    --color-accent: #daa567; /* */
   }
 }
 
@@ -91,8 +101,8 @@ body.dark {
 
   --color-silk-cream: #b88f66;
   --color-silk: #5b3b2a;
-  --color-coffee-dark: #1f0c09;
-  --color-coffee-medium: #2e160f;
+  --color-coffee-dark: #1f0c09; /* primary dark mode*/
+  --color-coffee-medium: #2e160f; /* secondary, buttons */
   --color-accent: #b2742c;  /* slightly muted accent for dark bg */
   --color-muted: #7d7d7d;
   --color-text: #ffffff;

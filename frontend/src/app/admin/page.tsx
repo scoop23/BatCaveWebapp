@@ -12,7 +12,7 @@ const Admin = () => {
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           <div className="text-sm text-gray-600">Welcome back, Admin</div>
         </header>
-
+    
         <section className="flex gap-10">
           <StatCard title="Total Reservations" value={128} icon="📅" trend={{ value: 12, isPositive: true }} />
           <StatCard title="Active Users" value={42} icon="👥" trend={{ value: -4, isPositive: false }} />

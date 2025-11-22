@@ -3,6 +3,7 @@ import { Reservations } from "../Rooms/RoomCard"
 import { ReservationStatus } from "../Rooms/RoomCard"
 import { statusOptions } from "@/src/app/admin/reservations/page"
 import { motion } from 'framer-motion';
+import dayjs from "dayjs";
 
 interface EditModalProps {
   reservation : Reservations
@@ -46,11 +47,11 @@ export const EditModal : React.FC<EditModalProps> = ({ reservation, onClose, onS
           </div>
           <div>
             <label className="text-xs font-semibold">Start</label>
-            <input type="time" className="w-full border px-2 py-2 rounded" value={form.start} onChange={(e) => setForm({ ...form, start: e.target.value })} />
+            <input type="time" className="w-full border px-2 py-2 rounded" value={form.start_time} onChange={(e) => setForm({ ...form, start: e.target.value })} />
           </div>
           <div>
             <label className="text-xs font-semibold">End</label>
-            <input type="time" className="w-full border px-2 py-2 rounded" value={form.end} onChange={(e) => setForm({ ...form, end: e.target.value })} />
+            <input type="time" className="w-full border px-2 py-2 rounded" value={form.end_time} onChange={(e) => setForm({ ...form, end: e.target.value })} />
           </div>
           <div>
             <label className="text-xs font-semibold">Pax</label>

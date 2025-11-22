@@ -10,11 +10,11 @@ const Menu = () => {
   return (
     <div className='menu-container w-full w-full relative mt-[-40px]'
     style={{ 
-    fontFamily: "var(--font-inter)",
-    backgroundImage: "url('/images/bg-menu.png')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundAttachment: "fixed",
+    // fontFamily: "var(--font-inter)",
+    // backgroundImage: "url('/images/bg-menu.png')",
+    // backgroundSize: "cover",
+    // backgroundPosition: "center",
+    // backgroundAttachment: "fixed",
     // position : "absolute",
     // top : "130px"
   }}>

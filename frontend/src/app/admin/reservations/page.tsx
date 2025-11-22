@@ -7,6 +7,7 @@ import { AnimatePresence } from 'framer-motion'
 import { statusColorMap } from '@/src/components/ConfirmationCard/ConfirmedReservation'
 // import { EditModal } from '@/src/components/Admin/EditModal'
 // import AdminOnlyLayout from '@/src/components/Admin/AdminOnlyLayout'
+import dayjs from 'dayjs'
 export const statusOptions: ReservationStatus[] = [
   ReservationStatus.Pending,
   ReservationStatus.Ongoing,
@@ -22,34 +23,6 @@ export default function AdminReservationsPage() {
   const [editing, setEditing] = useState<Reservations | null>(null)
   const [isMobile, setIsMobile] = useState(false)
 
-  // useEffect(() => {
-  //   const fetchReservations = async () => {
-  //     setLoading(true)
-  //     setError(null)
-  //     try {
-  //       // try GET first, fallback to POST if necessary
-  //       const res = await apiGet('/reservations')
-  //       if (res && res.data) {
-  //         console.log(res)
-  //         setReservations(res.data)
-  //       } else {
-  //         // fallback - some backends expect POST to fetch all
-  //         const r2 = await apiPost('/reservations-all', {})
-  //         if (r2 && r2.success && r2.data) setReservations(r2.data)
-  //       }
-  //     } catch (e) {
-  //       console.error(e)
-  //       setError('Could not load reservations')
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   fetchReservations()
-  //   const checkMobile = () => setIsMobile(window.innerWidth < 768)
-  //   checkMobile()
-  //   window.addEventListener('resize', checkMobile)
-  //   return () => window.removeEventListener('resize', checkMobile)
-  // }, [])
 
   const onSave = async (updated: Reservations) => {
     setLoading(true)
@@ -57,6 +30,7 @@ export default function AdminReservationsPage() {
     try {
       const payload = { ...updated }
       const resp = await apiPost('/reservations-update', payload)
+      console.log(resp);
       if (resp && resp.success) {
         setReservations((prev) => prev.map((r) => (r.id === updated.id ? updated : r)))
         setEditing(null)
@@ -83,8 +57,8 @@ export default function AdminReservationsPage() {
             id : r.id,
             date : r.date,
             phone : r.phone,
-            start_time : r.start,
-            end_time : r.end,
+            start_time : r.start_time,
+            end_time : r.end_time,
             pax : r.pax,
             type : r.type,
             status : r.status,
@@ -119,6 +93,8 @@ export default function AdminReservationsPage() {
     )
   }
 
+  console.log(reservations)
+
   return (
       <div className="p-6 ">
         <h2 className="text-2xl text-[var(--color-coffee-medium)] font-bold mb-4">Reservations</h2>
@@ -152,7 +128,7 @@ export default function AdminReservationsPage() {
                     <td className="px-4 py-3 text-sm">{r.userName || r.userId}</td>
                     <td className="px-4 py-3 text-sm">{r.phone || '-'}</td>
                     <td className="px-4 py-3 text-sm">{r.date}</td>
-                    <td className="px-4 py-3 text-sm">{r.start} - {r.end}</td>
+                    <td className="px-4 py-3 text-sm">{dayjs(r.date + "T" + r.start_time).format("h:mm")}pm - {dayjs(r.date + "T" + r.end_time).format("h:mm")}pm</td>
                     <td className="px-4 py-3 text-sm">{r.pax}</td>
                     <td className="px-4 py-3 text-sm">{r.type}</td>
                     <td className={`px-4 py-3 text-sm ${statusColorMap[r.status]}`}>{r.status}</td>
