@@ -250,6 +250,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
           start_time : start,
           end_time : end
         }
+        console.log(mappedPayload)
         await apiPost('/reservations' , mappedPayload)
       }
       // setPaxLeft(res.totalPax);

@@ -47,7 +47,9 @@ interface CarouselProps {
 }
 
 const HorizontalCarousel: React.FC<CarouselProps> = ({ data }) => {
-  const carouselRef = useRef<StackedCarousel | undefined>(undefined);
+  const carouselRef = useRef<StackedCarousel | null>(null);
+
+
 
   return (
     <div
@@ -58,7 +60,7 @@ const HorizontalCarousel: React.FC<CarouselProps> = ({ data }) => {
       className="relative w-full px-4 py-6"
     >
       <ResponsiveContainer
-        carouselRef={carouselRef}
+        carouselRef={carouselRef  as any}
         render={(parentWidth) => {
           let visibleSlides = 5; // default desktop
           if (parentWidth < 640) visibleSlides = 1; // mobile

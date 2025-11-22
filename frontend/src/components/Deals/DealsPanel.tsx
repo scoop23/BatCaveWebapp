@@ -30,7 +30,7 @@ export default function DealsPanel() {
 			<div className="deals-header">
 				<h3>Our Deals</h3>
 				<p className="deals-sub">
-					Limited-time offers crafted for night owls — grab them while they're hot.
+					Limited-time offers crafted for night owls — grab them while they&apos;re hot.
 				</p>
 			</div>
 
