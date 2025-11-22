@@ -31,7 +31,7 @@ const NavBar: React.FC = () => {
       {/* Desktop Navbar */}
       {!isMobile ? (
         <nav className='nav-bar max-w-[1500px] w-full rounded-[100px] z-2 mt-1.5 '>
-          <section className='navigation-section flex h-[160px] justify-between px-20 py-4 pb-5'>
+          <section className='navigation-section flex h-[90px] justify-between px-20 py-4 pb-5'>
             <div className='logo flex w-full max-w-[500px] items-center gap-6 font-extrabold text-[23px]'>
               <div className='' >
                 <Image src={brandImage} alt="BatCaveLogo" width={150} height={150}/>
@@ -42,7 +42,7 @@ const NavBar: React.FC = () => {
               </div>
               <div className="flex items-center gap-20">
                 <ThemeToggle />
-                <ActionButtonGroup />
+                {/* <ActionButtonGroup /> */}
               </div>
           </section>
         </nav>
