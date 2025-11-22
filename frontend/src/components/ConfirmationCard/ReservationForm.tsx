@@ -74,7 +74,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
         variants={reservationVariant}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         onClick={(e) => e.stopPropagation()}
-        className="reservation-form absolute w-full max-w-[610px] mx-4 p-6 bg-[var(--color-coffee-dark)] rounded-xl border-4 border-amber-600 shadow-2xl space-y-4"
+        className="reservation-form absolute w-full max-w-[610px] mx-4 p-4 bg-[var(--color-coffee-dark)] rounded-xl border-4 border-amber-600 shadow-2xl space-y-2 max-h-[90vh] overflow-y-auto"
         // style={{ filter : "url(#goo)" }} // make it gooey
       >
         {/* Sidebar Toggle Button */}

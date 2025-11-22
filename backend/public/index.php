@@ -168,6 +168,19 @@ try {
         echo json_encode($result);
         exit;
     }
+
+    if ($route === '/reservations-delete' && $method === 'POST') {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $reservationId = $data['id'] ?? null;
+
+        if ($reservationId) {
+            $result = $reservationModel->deleteReservation($reservationId);
+            echo json_encode($result);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Reservation ID not provided']);
+        }
+        exit;
+    }
     
     if ($route === '/reservations-update' && $method === 'POST') {
         $data = json_decode(file_get_contents('php://input') , true);

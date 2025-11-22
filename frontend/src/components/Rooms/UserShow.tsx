@@ -57,10 +57,12 @@ const UserShow : React.FC<UserShowProps> = ({ onSaveUser }) => {
   }
 
   return (
-    <form onSubmit={handleSave} className="p-4 rounded shadow flex flex-col gap-5 text-black" style={{
+    <form onSubmit={handleSave} className="p-4 rounded shadow flex flex-col gap-5 " style={{
       fontFamily : "var(--font-inter)",
-      backgroundColor : "var(--color-coffee-dark)",
-      boxShadow : "var(--shadow-custom)"
+      backgroundColor : "var(--color-coffee-medium)",
+      boxShadow : "var(--shadow-custom)",
+      color : "var(--color-text)"
+
     }}>
       <h3 className=''>We need basic information for us to allow reservations</h3>
       <h4 className="font-semibold">Enter your details</h4>
