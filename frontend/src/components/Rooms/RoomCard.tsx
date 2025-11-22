@@ -87,6 +87,7 @@ const calculateHours = (startTime: string, endTime: string): number => {
   return Math.max(1, Math.ceil(hours))
 }
 
+
 const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
   const [showReservationForm, setShowReservationForm] = useState(false)
   const [date, setDate] = useState('')
@@ -205,7 +206,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
 
   // INSERT RESERVATIONS
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+    // e.preventDefault();
     // turn on comment for testing
     if (!form.date) {
       setForm({...form , feedBack : 'Please select a date'})
@@ -260,9 +261,9 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
       }
       // setPaxLeft(res.totalPax);
       setForm({...form , feedBack : 'Reserved successfully'});
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1000); // 1 second
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); // 1 second
       setShowReservationForm(false)
     }
   }

@@ -207,7 +207,9 @@ const AvailableRooms = () => {
   return (
     <Section isAnimated={false}>
       <AnimatePresence>
-          <div className='available-rooms flex flex-col items-center gap-2 my-8'>
+          <div className='available-rooms flex flex-col items-center gap-2 my-8' style={{
+            backgroundImage : "url('images/bg2.jpg')"
+          }}>
               { 
               // room is from the database
                 room.map((r , i) => (
