@@ -74,7 +74,7 @@ export default function Home() {
       </motion.div>
 
       {/* Main content */}
-      <main className="w-full max-w-6xl px-6 py-12 flex flex-col gap-16">
+      <main className="w-full max-w-6xl px-6 py-12 flex flex-col gap-3">
         <h1 className="" style={{ 
           color : "var(--color-coffee-medium)",
           fontSize : "4rem",

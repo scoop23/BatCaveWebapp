@@ -60,6 +60,7 @@ export default function DealsPanel() {
 								<button
 									className="deal-add"
 									aria-label={`Add ${d.title} to cart`}
+									style={{ color : "var(--color-text)" }}
 								>
 									Add to Cart
 								</button>
@@ -167,6 +168,7 @@ export default function DealsPanel() {
 					gap: 10px;
 					justify-content: flex-end;
 					align-items: center;
+					gap : 110px;
 				}
 				.deal-cta {
 					background: transparent;
@@ -192,7 +194,7 @@ export default function DealsPanel() {
 						height: 140px;
 					}
 					.deals-header h3 {
-						font-size: 1.05rem;
+						font-size: 2rem;
 					}
 				}
 			`}</style>

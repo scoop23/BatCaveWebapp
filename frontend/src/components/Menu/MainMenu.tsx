@@ -51,7 +51,11 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
               animate="visible"
               exit="exit"
               layout
-              style={{ background: 'linear-gradient(180deg, rgba(18,16,15,0.55), rgba(12,12,12,0.6))'}}
+              style={{ 
+                background: 'linear-gradient(180deg, rgba(18,16,15,0.55), rgba(12,12,12,0.6))', 
+                backdropFilter : "blur(10px)",
+                borderRadius : "20px"
+              }}
             >
               <div className="media relative h-44 w-full overflow-hidden rounded-md">
                 {p?.image ? (
@@ -77,7 +81,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
                 <h4 className="text-base font-bold text-amber-50">{p.title ?? "Untitled"}</h4>
                 <p className="text-xs mt-1 text-gray-300 line-clamp-3">{p.description ?? ""}</p>
                 <div className="mt-3 flex items-center justify-between">
-                  <span className="price-pill">{p.price ?? ""}</span>
+                  <span className="price-pill " style={{ color : "var(--color-text)" }}>{p.price ?? ""}</span>
                   <button className="btn-view">View</button>
                 </div>
               </div>
@@ -99,7 +103,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
         .media-overlay { position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.45)); transition: background 0.18s; }
         .group:hover .media-overlay { background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.6)); }
         .card-content { padding-bottom: 16px; }
-        .price-pill { background: rgba(202,167,123,0.12); color: var(--color-coffee-medium); padding:6px 10px; border-radius:8px; font-weight:700; font-size:13px; }
+        .price-pill { background: var(--color-coffee-medium); color: var(--color-coffee-medium); padding:6px 10px; border-radius:8px; font-weight:700; font-size:13px; }
         .btn-view { background: var(--color-coffee-medium); color: var(--color-text); padding:6px 10px; border-radius:8px; font-weight:600; }
         @media (max-width: 640px){ .media{ height: 160px; } }
       `}</style>

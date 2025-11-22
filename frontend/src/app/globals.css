@@ -105,6 +105,13 @@ Cream/White (#fdfdf8) – clean contrast */
     --color-coffee-medium: #caa77b;  /* amber remains for contrast */
     --color-coffee-light: #2f1e1a;   /* subtle lighter coffee surface */
 
+    /* about light */
+    --color-about : #ffffff;
+    --color-about-text : #000000;
+    /* core values light */
+    --color-core : #FFECB3;
+    --color-core-text :rgb(64, 57, 35)3;
+    
     --color-muted: #9b8f85;
   }
 }
@@ -117,10 +124,18 @@ body.dark {
   --color-silk-cream: #b88f66;
   --color-silk: #5b3b2a;
   --color-coffee-dark: #1f0c09; /* primary dark mode*/
-  --color-coffee-medium: #2e160f; /* secondary, buttons */
+  --color-coffee-medium: #4c1301; /* secondary, buttons */
   --color-accent: #b2742c;  /* slightly muted accent for dark bg */
   --color-accent: #b2742c;
   --color-muted: #7d7d7d;
+
+  /* about dark */
+  --color-about : #000000;
+  --color-about-text : #ffffff;
+
+  /* core values dark */
+  --color-core : #7e6b32;
+  --color-core-text :rgb(58, 52, 34)3;
 }
 
 /* ===== Base Body ===== */
@@ -261,7 +276,7 @@ html, body {
 
 @media (max-width: 480px) {
   .headline {
-    font-size: 2rem;
+    font-size: 1.6rem;
     transform: translateY(30px);
   }
 }

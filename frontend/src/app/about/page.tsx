@@ -29,7 +29,7 @@ const containerVariant: Variants = {
 };
 
   return (
-    <div className="w-full bg-linear-to-r from-[var(--color-white-choco)] to-white mt-40">
+    <div className="w-full bg-[var(--color-about)] to-white mt-40">
       {/* Hero Section */}
       <motion.section 
         className="max-w-6xl mx-auto px-4 py-20 text-center"
@@ -40,7 +40,7 @@ const containerVariant: Variants = {
       >
         <motion.h1 
           className="text-5xl md:text-6xl font-bold mb-6"
-          style={{ color: 'var(--color-coffee-dark)' }}
+          style={{ color: 'var(--color-text)' }}
           variants={itemVariant}
         >
           About Bat Cave
@@ -63,7 +63,7 @@ const containerVariant: Variants = {
       >
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div variants={itemVariant}>
-            <h2 className="text-4xl font-bold mb-6" style={{ color: 'var(--color-coffee-dark)' }}>
+            <h2 className="text-4xl font-bold mb-6" style={{ color: 'var(--color-text)' }}>
               Our Story
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed mb-4">
@@ -112,7 +112,7 @@ const containerVariant: Variants = {
       >
         <motion.h2 
           className="text-4xl font-bold text-center mb-16"
-          style={{ color: 'var(--color-coffee-dark)' }}
+          style={{ color: 'var(--color-text)' }}
           variants={itemVariant}
         >
           Our Mission & Vision
@@ -153,7 +153,7 @@ const containerVariant: Variants = {
 
       {/* Values Section */}
       <motion.section 
-        className="max-w-6xl mx-auto px-4 py-20 bg-linear-to-r from-amber-100 to-amber-50 rounded-lg my-12"
+        className="max-w-6xl mx-auto px-4 py-20 bg-[var(--color-core)] rounded-lg my-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -161,13 +161,13 @@ const containerVariant: Variants = {
       >
         <motion.h2 
           className="text-4xl font-bold text-center mb-12"
-          style={{ color: 'var(--color-coffee-dark)' }}
+          style={{ color: 'var(--color-text)' }}
           variants={itemVariant}
         >
           Our Core Values
         </motion.h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 " >
           {[
             { icon: '☕', title: 'Quality', description: 'Premium ingredients and exceptional craftsmanship in everything we do' },
             { icon: '❤️', title: 'Community', description: 'Creating a warm space where everyone feels welcome and valued' },
@@ -181,12 +181,13 @@ const containerVariant: Variants = {
               className="text-center p-6"
               variants={itemVariant}
               whileHover={{ scale: 1.05 }}
+              style={{ color : "var(--color-core-text)" }}
             >
               <div className="text-5xl mb-4">{value.icon}</div>
-              <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-coffee-dark)' }}>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>
                 {value.title}
               </h3>
-              <p className="text-gray-700">
+              <p className="text-[var(--color-text)]">
                 {value.description}
               </p>
             </motion.div>
@@ -204,7 +205,7 @@ const containerVariant: Variants = {
       >
         <motion.h2 
           className="text-3xl font-bold mb-6"
-          style={{ color: 'var(--color-coffee-dark)' }}
+          style={{ color: 'var(--color-text)' }}
           variants={itemVariant}
         >
           Experience the Bat Cave Difference
