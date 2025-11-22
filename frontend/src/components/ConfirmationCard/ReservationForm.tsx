@@ -74,7 +74,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
         variants={reservationVariant}
         transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         onClick={(e) => e.stopPropagation()}
-        className="reservation-form absolute w-full max-w-[610px] mx-4 p-4 bg-[var(--color-coffee-dark)] rounded-xl border-4 border-amber-600 shadow-2xl space-y-2 max-h-[90vh] overflow-y-auto"
+        className="reservation-form absolute w-full max-w-[620px] mx-4 p-4 bg-[var(--color-coffee-dark)] rounded-xl border-4 border-amber-600 shadow-2xl space-y-2 max-h-[90vh] overflow-y-auto"
         // style={{ filter : "url(#goo)" }} // make it gooey
       >
         {/* Sidebar Toggle Button */}
@@ -211,10 +211,19 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ form , setForm, handl
         </div>
 
       {form.feedBack && (
-        <div className={`mt-4 p-4 rounded-lg border-l-4 font-semibold ${form.feedBack.includes('successfully') ? 'bg-green-100 border-green-600 text-green-800' : 'bg-red-100 border-red-600 text-red-800'}`}>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 600 }}
+          exit={{ opacity: 0, y: -10 }}
+          className={`absolute top-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-[500px] p-4 rounded-lg border-l-4 font-semibold z-50
+            ${form.feedBack.includes('successfully') 
+              ? 'bg-green-100 border-green-600 text-green-800' 
+              : 'bg-red-100 border-red-600 text-red-800'}`}
+        >
           <p className="text-sm">{form.feedBack}</p>
-        </div>
+        </motion.div>
       )}
+
       
       </motion.form>
 

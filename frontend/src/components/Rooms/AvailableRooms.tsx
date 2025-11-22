@@ -159,19 +159,29 @@ const AvailableRooms = () => {
 
       totalPaxAfterReservation = totalPax + r.pax;
       console.log("Total Pax after reservation: " + totalPaxAfterReservation);
-    } else if (r.type === RoomType.Function) { // if function type
-      console.log("HEY HEY")
-      const overlappingfunction = currentRoom.reservation.filter((functionRoom) => 
-        functionRoom.type === RoomType.Function &&
-        functionRoom.date === r.date &&
-        reservationOverlap(r.start , r.end , functionRoom.start , functionRoom.end)
-      ) // check if the current room which is a function that we will input is the same date and check if it has a study type, then check if it overlaps with the current room that we have that is a function returns the ones that overlap
-      if(overlappingfunction.length > 0) { // if no overlappingStudy store in database?
-        return { success : false , message : "Your Function Reservation Will Overlap with Function Schedules on that Date."}
-      }   
+    }  else if (r.type === RoomType.Function) {
+  // check for overlapping Function
+  const overlappingFunction = currentRoom.reservation.filter((res) =>
+    res.type === RoomType.Function &&
+    res.date === r.date &&
+    reservationOverlap(r.start, r.end, res.start, res.end)
+  );
 
-      
-    }
+  if (overlappingFunction.length > 0) {
+    return { success: false, message: "Your Function Reservation Will Overlap with Function Schedules on that Date." }
+  }
+
+  // check for overlapping Study (because Functions are exclusive)
+  const overlappingStudy = currentRoom.reservation.filter((res) =>
+    res.type === RoomType.Study &&
+    res.date === r.date &&
+    reservationOverlap(r.start, r.end, res.start, res.end)
+  );
+
+  if (overlappingStudy.length > 0) {
+    return { success: false, message: "Can't reserve a Function during an existing Study reservation" }
+  }
+}
 
     // if no problems, create new reservation
     const newReservation = {id : `R#${Date.now() * 100}`, ...r}
@@ -207,9 +217,7 @@ const AvailableRooms = () => {
   return (
     <Section isAnimated={false}>
       <AnimatePresence>
-          <div className='available-rooms flex flex-col items-center gap-2 my-8' style={{
-            backgroundImage : "url('images/bg2.jpg')"
-          }}>
+          <div className='available-rooms flex flex-col items-center gap-2 my-8'>
               { 
               // room is from the database
                 room.map((r , i) => (
