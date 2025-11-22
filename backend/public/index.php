@@ -39,18 +39,18 @@ try {
     //     PRAGMA table_info(Reservations);
     // ')->fetchAll(PDO::FETCH_ASSOC);
     
-    // $hasTotalPrice = false;
+    $hasTotalPrice = false;
 
-    // foreach($currentColumns as $column) {
-    //     if($column['name'] === 'totalPrice') {
-    //         $hasTotalPrice = true;
-    //         break;
-    //     }
-    // }
+    foreach($currentColumns as $column) {
+        if($column['name'] === 'totalPrice') {
+            $hasTotalPrice = true;
+            break;
+        }
+    }
 
-    // if(!$hasTotalPrice) {
-    //     $db->exec("ALTER TABLE Reservations ADD COLUMN totalPrice INTEGER;");
-    // }
+    if(!$hasTotalPrice) {
+        $db->exec("ALTER TABLE Reservations ADD COLUMN totalPrice INTEGER;");
+    }
 
     // -------------------- 
 
@@ -174,7 +174,7 @@ try {
         
         $result = $reservationModel->updateReservations($data);
 
-        header("Content-type : application/json");
+        header("Content-Type: application/json")
         echo json_encode($result);
         exit;
     }

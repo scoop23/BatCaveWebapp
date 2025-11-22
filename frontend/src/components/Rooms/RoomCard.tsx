@@ -255,9 +255,9 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
       }
       // setPaxLeft(res.totalPax);
       setForm({...form , feedBack : 'Reserved successfully'});
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000); // 1 second
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000); // 1 second
       setShowReservationForm(false)
     }
   }
