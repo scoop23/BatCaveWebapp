@@ -57,8 +57,8 @@ export default function AdminReservationsPage() {
             id : r.id,
             date : r.date,
             phone : r.phone,
-            start_time : r.start_time,
-            end_time : r.end_time,
+            start : r.start_time,
+            end : r.end_time,
             pax : r.pax,
             type : r.type,
             status : r.status,
@@ -128,7 +128,7 @@ export default function AdminReservationsPage() {
                     <td className="px-4 py-3 text-sm">{r.userName || r.userId}</td>
                     <td className="px-4 py-3 text-sm">{r.phone || '-'}</td>
                     <td className="px-4 py-3 text-sm">{r.date}</td>
-                    <td className="px-4 py-3 text-sm">{dayjs(r.date + "T" + r.start_time).format("h:mm")}pm - {dayjs(r.date + "T" + r.end_time).format("h:mm")}pm</td>
+                    <td className="px-4 py-3 text-sm">{dayjs(r.date + "T" + r.start).format("h:mm")}pm - {dayjs(r.date + "T" + r.end).format("h:mm")}pm</td>
                     <td className="px-4 py-3 text-sm">{r.pax}</td>
                     <td className="px-4 py-3 text-sm">{r.type}</td>
                     <td className={`px-4 py-3 text-sm ${statusColorMap[r.status]}`}>{r.status}</td>
