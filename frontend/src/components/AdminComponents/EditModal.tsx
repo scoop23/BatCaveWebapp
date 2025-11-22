@@ -12,7 +12,7 @@ interface EditModalProps {
 }
 
 export const EditModal : React.FC<EditModalProps> = ({ reservation, onClose, onSave }) => {
-  const [form, setForm] = useState<Reservations>({ ...reservation })
+  const [form, setForm] = useState<any>({ ...reservation })
 
   const overlayVariant = {
     hidden : { opacity : 0 },
