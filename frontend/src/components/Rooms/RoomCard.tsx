@@ -185,6 +185,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
         phone: r.phone,
         userName: r.user_name,
       }))
+      console.log(formatted)
       setReservationData(formatted)
     }
     fetchUserReservation()
@@ -195,7 +196,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
     if (!reservationData || !reservationId) return null
     return reservationData.find((r) => r.id === reservationId)
   }, [reservationData, reservationId]);
-
+  console.log(currentReservation)
   // If userId not loaded yet, show UserShow
   if (userId === null) return <UserShow onSaveUser={onSaveUser} />
 
@@ -244,11 +245,12 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onReserve }) => {
         setReservationId(res.reservationId)
       }
       if(res.newReservation) {
-        const { start, end , ...data } = res.newReservation
+        const { start, end , totalPrice ,...data } = res.newReservation
         const mappedPayload = {
           ...data,
           start_time : start,
-          end_time : end
+          end_time : end,
+          totalPrice
         }
         console.log(mappedPayload)
         await apiPost('/reservations' , mappedPayload)
