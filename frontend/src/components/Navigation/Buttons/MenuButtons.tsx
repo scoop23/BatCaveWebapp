@@ -8,11 +8,12 @@ const MenuButtons: React.FC = () => {
     const pathname = usePathname()
 
     
+
     const buttons = [
     { label: 'Home', path: '/' },
     { label: 'Menu', path: '/menu' },
     { label: 'Rooms', path: '/rooms' },
-    { label: 'Contact', path: '/contact' },
+    { label: 'About', path: '/about' },
     ]
 
     return (
