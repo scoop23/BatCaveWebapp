@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
           <div className='flex items-center justify-between h-[90px] px-20'>
             <div className='flex items-center gap-6 font-extrabold text-[23px]'>
               <div className='relative w-[60px] h-[60px]'>
-                <Image src={brandImage} alt="BatCaveLogo" fill style={{ objectFit: 'cover' }} />
+                <Image src={brandImage} alt="BatCaveLogo" width={60} height={60} style={{ objectFit: 'cover' }} />
               </div>
               <span className='text-2xl opacity-75'>Bat Cave Café.</span>
             </div>
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
           <div className='max-w-[1185px] mx-auto flex items-center justify-between px-4 py-3'>
             <div className='flex items-center gap-3'>
               <div className='w-10 h-10 relative rounded-full overflow-hidden shadow-lg' style={{ backgroundColor: 'var(--color-coffee-medium)' }}>
-                <Image src={brandImage} alt="logo"  width={60}  height={60} style={{ objectFit: 'cover' }} />
+                <Image src={brandImage} alt="logo" width={60}  height={60} style={{ objectFit: 'cover' }} />
               </div>
               <div className='text-lg font-bold'>Bat Cave</div>
             </div>
