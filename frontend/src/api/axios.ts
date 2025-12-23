@@ -1,0 +1,55 @@
+import axios from 'axios';
+
+// export const BASE_URL = "http://localhost/batcave/backend/public"; //local DELETE THE CORS ON THE INDEX.PHP ON THE BACKEND FOR THIS TO WORK
+// export const BASE_URL = "http://localhost/BatCave/backend/public"; // local linux
+export const BASE_URL = "https://batcavewebappbackend.onrender.com"; // deployed
+
+// assuming BASE_URL is http://localhost:8080
+
+export const axiosMain = axios.create({
+    baseURL : BASE_URL
+    // withCredentials : true // no reason for now.
+});
+
+export const apiGet = async (url : string)  => {
+    try {
+        const response = await axiosMain.get(url); //   essentially this will be "http://localhost:8080/{url}"
+        return {response : response , data : response.data};
+    } catch (error) {
+        if(axios.isAxiosError(error)) {
+            console.error("Data: " , error.response?.data);
+            console.error("Full error: ", error)
+
+            console.error("Status: " , error.response?.status);
+            return;
+        }
+        else {
+          // Non-Axios error (network issues, etc.)
+          console.error('Unexpected error:', error);
+        }
+        return;
+    }
+} 
+
+export const apiPost = async (url: string, data: object) => {
+  try {
+    const response = await axiosMain.post(url, data, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return { success: true, data: response.data };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Data: ", error.response?.data || "No data");
+      console.error("Status: ", error.response?.status || "No status");
+      console.error("Full error: ", error);
+      return { success: false, error: error.response?.data || "Unknown error" };
+    } else {
+      console.error("Unexpected error: ", error);
+      return { success: false, error: error };
+    }
+  }
+};
+
+
+export default axiosMain;
+
