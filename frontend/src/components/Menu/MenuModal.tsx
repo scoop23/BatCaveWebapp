@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion , AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
 
 export interface MenuItem {
   category : string
@@ -12,14 +13,24 @@ export interface MenuItem {
 interface MenuModalProps {
   item : MenuItem
   isModalOpen : boolean
+  toggleModal : () => void
 }
 
 const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
-  console.log(item)
-  return (
-    <motion.div>
-      hey
-    </motion.div>
+  if (typeof window === "undefined") return null;
+
+
+  return createPortal(
+    <AnimatePresence>
+    {isModalOpen && item && (
+      <motion.div
+      className='fixed inset-0 z-50 flex items-center justify-center bg-black/60'>
+      
+      </motion.div>
+    )}
+    </AnimatePresence>
+    ,
+     document.body
   )
 }
 

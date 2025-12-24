@@ -30,6 +30,9 @@ const cardVariants = {
 const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
   const [modal, setModal] = useState(false);
 
+  function toggleModal () {
+    setModal(!modal);
+  }
 
   const items = data ?? menuData;
   const displayed = useMemo(() => {
