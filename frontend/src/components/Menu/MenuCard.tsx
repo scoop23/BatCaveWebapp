@@ -3,7 +3,6 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import '../../app/globals.css'
-
 export interface MenuCardProps {
   cover: string;
   description: string;

@@ -3,9 +3,11 @@ import React, { useMemo } from "react"
 import Image from "next/image"
 import menuData from "@/src/data/menu.json"
 import { AnimatePresence, motion } from "framer-motion"
+import { MenuItem } from "./MenuModal";
+import { useState } from "react"
 
 interface MainMenuProps {
-  data?: any[]
+  data?: any[] 
   filter: string | null
 }
 
@@ -26,12 +28,15 @@ const cardVariants = {
 }
 
 const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
-  const items = data ?? menuData
+  const [modal, setModal] = useState(false);
 
+
+  const items = data ?? menuData;
   const displayed = useMemo(() => {
-    if (!filter) return items
-    return items.filter((i: any) => capitalize(i.category) === filter)
-  }, [items, filter])
+    console.log(filter)
+    if (!filter) return items; // if category is nothing default to 'all' category
+    return items.filter((i: MenuItem) => capitalize(i.category) === filter);
+  }, [items, filter]);
 
   return (
     <div className="main-menu-panel">
@@ -42,9 +47,9 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
         animate="visible"
       >
         <AnimatePresence>
-          {displayed.map((p: any) => (
+          {displayed.map((p: MenuItem) => (
             <motion.article
-              key={p.id || p.title} // unique key
+              key={p.title} // unique key
               className="coffee-card group"
               variants={cardVariants}
               initial="hidden"

@@ -106,7 +106,7 @@ export default function Home() {
           
           <CarouselContainer animationVariant={fadeInUp}/>
 
-          <DealsPanel animationVariant={fadeInUp}/>
+          <DealsPanel />
           
 
           {/* New Brews / Featured */}

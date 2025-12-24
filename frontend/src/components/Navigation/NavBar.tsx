@@ -8,6 +8,9 @@ import ThemeToggle from '@/src/components/ThemeToggle/ThemeToggle'
 import { usePathname } from 'next/navigation'
 import MenuButtons from './Buttons/MenuButtons'
 import Link from 'next/link'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 const NavBar: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -56,6 +59,10 @@ const NavBar: React.FC = () => {
 
               <Link href="/rooms" className="cursor-pointer hover:text-amber-400 transition-colors duration-200">
                 Rooms
+              </Link>
+
+              <Link href="/cart" className='cursor-pointer hover:text-amber-400 transition-colors duration-200'>
+                <i className='fa fa-shopping-cart'></i>
               </Link>
             </div>
           </div>

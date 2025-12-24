@@ -43,7 +43,6 @@ const Hero: React.FC<HeroProps> = ({ animationVariant }) => {
       className="w-full relative"
     >
       <header className="relative w-full px-6 py-20 pb-10 pt-40 flex items-start justify-center gap-6 overflow-hidden">
-        {/* Background Image Layer */}
         <div className="absolute inset-0 z-0" style={{ background : "red" }}>
           <img
             src="/images/bg2.jpg"
@@ -52,7 +51,6 @@ const Hero: React.FC<HeroProps> = ({ animationVariant }) => {
             alt="Hero"
           />
 
-          {/* Optional Gradient Overlay */}
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
@@ -63,6 +61,9 @@ const Hero: React.FC<HeroProps> = ({ animationVariant }) => {
             variants={textContainer}
             initial="hidden"
             animate={ready ? "visible" : false}
+            style={{
+              fontFamily : "var(--font-Cinzel)"
+            }}
           >
             <motion.span
               className="text-5xl md:text-7xl lg:text-7xl text-center text-white"

@@ -7,13 +7,11 @@ const MenuButtons: React.FC = () => {
     const router = useRouter()
     const pathname = usePathname()
 
-    
-
     const buttons = [
-    { label: 'Home', path: '/' },
-    { label: 'Menu', path: '/menu' },
-    { label: 'Rooms', path: '/rooms' },
-    { label: 'About', path: '/about' },
+        { label: 'Home', path: '/' },
+        { label: 'Menu', path: '/menu' },
+        { label: 'Rooms', path: '/rooms' },
+        { label: 'About', path: '/about' },
     ]
 
     return (

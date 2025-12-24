@@ -25,13 +25,13 @@ const deals = [
 	},
 ]
 
-export default function DealsPanel( {animationVariant}  :  { animationVariant : Variants} ) {
+export default function DealsPanel( {} ) {
 	return (
 		<motion.section
-			variants={animationVariant}
-			initial="hidden"
-			whileInView="visible"
-			viewport={{ once: true, amount: 0.2 }}
+			initial={{ opacity : 0 , y : 100}}
+			whileInView={{ opacity : 1 , y : 0}}
+			transition={{ duration : 1 , ease : "easeInOut" }}
+			viewport={{ once: true, amount : 0.5 }}
     >
 			<section className="deals-panel w-full max-w-6xl px-6">
 				<div className="deals-header">
