@@ -24,8 +24,14 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
     <AnimatePresence>
     {isModalOpen && item && (
       <motion.div
-      className='fixed inset-0 z-50 flex items-center justify-center bg-black/60'>
-      
+      className='overlay-modal fixed inset-0 z-50 flex items-center justify-center bg-black/60'
+      initial={{ opacity : 0 }}
+      animate={{ opacity : 1 }}
+      exit={{ opacity : 0 }}
+      >
+        <motion.div>
+          
+        </motion.div>
       </motion.div>
     )}
     </AnimatePresence>
