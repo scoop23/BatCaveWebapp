@@ -28,7 +28,7 @@ const MenuSideBar: React.FC<MenuSideBarProps> = ({ onSelect, initial, setFilter 
 
   return (
     <aside className="menu-sidebar flex flex-col gap-3 w-44">
-      <h3 className="text-sm text-gray-200 font-semibold mb-2" style={{ fontFamily: "var(--font-Cinzel)" }}>Categories</h3>
+      <h3 className="text-sm text-gray-600 font-semibold mb-2" style={{ fontFamily: "var(--font-Cinzel)" }}>Categories</h3>
       <div className="flex flex-col gap-2">
         {/* All category button */}
         <CategoryButton

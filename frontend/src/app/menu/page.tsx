@@ -9,20 +9,20 @@ const Menu = () => {
   const [filter, setFilter] = useState<string | null>(null)
 
   return (
-    <div className="menu-container w-full relative mt-[80px]">
+    <div className="menu-container w-full relative ">
       <Section
         isAnimated={false}
         style={{
           display: "flex",
           gap: "30px",
           justifyContent: "center",
-          marginTop: "15px",
-          padding: "20px",
+          paddingTop: "130px",
+          paddingBottom : "50px",
           zIndex: "1",
-          paddingTop: "40px",
           flexWrap: "wrap", // optional, prevents overflow issues
-          backgroundImage : "url('/images/cave1.jpg')",
-          backgroundSize : "130%"
+          // backgroundImage : "url('/images/cave1.jpg')",s
+          backgroundSize : "130%",
+          backgroundColor : "#ece0d1"
         }}
         className="menu-inner-container md:flex-row"
       >

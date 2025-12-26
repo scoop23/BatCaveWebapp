@@ -29,7 +29,9 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
       animate={{ opacity : 1 }}
       exit={{ opacity : 0 }}
       >
-        <motion.div>
+        <motion.div
+        className='modal-container'
+        >
           
         </motion.div>
       </motion.div>
