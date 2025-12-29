@@ -5,6 +5,7 @@ import menuData from "@/src/data/menu.json"
 import { AnimatePresence, motion } from "framer-motion"
 import { MenuItem } from "./MenuModal";
 import { useState } from "react"
+import MenuItemCard from "./MenuItemCard"
 
 interface MainMenuProps {
   data?: any[] 
@@ -49,51 +50,9 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
         initial="hidden"
         animate="visible"
       >
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {displayed.map((p: MenuItem) => (
-            <motion.article
-              key={p.title} // unique key
-              className="coffee-card group"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              layout
-              style={{ 
-                background: 'linear-gradient(180deg, rgba(18,16,15,0.55), rgba(12,12,12,0.6))', 
-                backdropFilter : "blur(10px)",
-                borderRadius : "20px"
-              }}
-            >
-              <div className="media relative h-44 w-full overflow-hidden rounded-md">
-                {p?.image ? (
-                  <Image
-                    src={`/images/menufolder/${p.image}`}
-                    alt={p.title ?? ""}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      background: "linear-gradient(90deg,#111,#1b1b1b)",
-                    }}
-                  />
-                )}
-                <div className="media-overlay" />
-              </div>
-
-              <div className="card-content p-4">
-                <h4 className="text-base font-bold text-amber-50">{p.title ?? "Untitled"}</h4>
-                <p className="text-xs mt-1 text-gray-300 line-clamp-3">{p.description ?? ""}</p>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="price-pill " style={{ color : "var(--color-text)" }}>{p.price ?? ""}</span>
-                  <button className="btn-view">View</button>
-                </div>
-              </div>
-            </motion.article>
+              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants}/>
           ))}
         </AnimatePresence>
       </motion.div>
