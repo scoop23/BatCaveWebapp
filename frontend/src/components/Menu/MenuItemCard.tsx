@@ -23,7 +23,7 @@ const MenuItemCard = ({ item , cardVariants} : MenuItemCardProp) => {
         backdropFilter : "blur(10px)",
         borderRadius : "10px",
         boxShadow : "5px 5px 5px 0px rgba(0,0,0,0.3)",
-        height : "100%"
+        height : "100%",
       }}
     >
       <div className="media relative h-44 w-full overflow-hidden rounded-md">
@@ -46,7 +46,10 @@ const MenuItemCard = ({ item , cardVariants} : MenuItemCardProp) => {
         <div className="media-overlay" />
       </div>
 
-      <div className="card-content p-4">
+      <div className="card-content p-4" style={{
+        backgroundColor : "var(--color-coffee-medium)",
+        transition : "all 160ms ease"
+      }}>
         <h4 className="text-base font-bold text-amber-50">{item.title ?? "Untitled"}</h4>
         <p className="text-xs mt-1 text-gray-300 line-clamp-3">{item.description ?? ""}</p>
         <div className="mt-3 flex items-center justify-between">
