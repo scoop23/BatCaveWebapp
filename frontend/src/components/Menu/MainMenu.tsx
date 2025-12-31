@@ -3,7 +3,7 @@ import React, { useMemo } from "react"
 import Image from "next/image"
 import menuData from "@/src/data/menu.json"
 import { AnimatePresence, motion } from "framer-motion"
-import { MenuItem } from "./MenuModal";
+import MenuModal, { MenuItem } from "./MenuModal";
 import { useState } from "react"
 import MenuItemCard from "./MenuItemCard"
 
@@ -52,7 +52,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
       >
         <AnimatePresence mode="popLayout">
           {displayed.map((p: MenuItem) => (
-              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal}/>
+              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal} isModalOpen={modal}/>
           ))}
         </AnimatePresence>
       </motion.div>

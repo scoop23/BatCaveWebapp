@@ -1,15 +1,16 @@
 import React from 'react'
 import { motion, Variants } from 'framer-motion';
-import { MenuItem } from './MenuModal';
+import MenuModal, { MenuItem } from './MenuModal';
 import Image from 'next/image';
 
 type MenuItemCardProp = {
   item : MenuItem
   cardVariants : Variants
   toggleModal : () => void
+  isModalOpen : boolean
 }
 
-const MenuItemCard = ({ item , cardVariants, toggleModal} : MenuItemCardProp) => {
+const MenuItemCard = ({ item , cardVariants, toggleModal, isModalOpen}  : MenuItemCardProp) => {
   return (
     <motion.article
       layout
@@ -60,7 +61,7 @@ const MenuItemCard = ({ item , cardVariants, toggleModal} : MenuItemCardProp) =>
         <p className="text-xs mt-1 line-clamp-3 text-(--color-text)">{item.description ?? ""}</p>
         <div className="mt-3 flex items-center justify-between">
           <span className="price-pill " style={{ color : "var(--color-text)" }}>{item.price ?? ""}</span>
-          <button className="btn-view cursor-pointer text-(--color-text)" onClick={() => toggleModal()}>View</button>
+          <button className="btn-view cursor-pointer text-(--color-text)" onClick={toggleModal}>View</button>
         </div>
       </div>
     </motion.article>

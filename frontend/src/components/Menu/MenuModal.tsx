@@ -18,8 +18,7 @@ interface MenuModalProps {
 
 const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
   if (typeof window === "undefined") return null;
-  console.log(item);
-
+  console.log(item)
   return createPortal(
     <AnimatePresence>
     {isModalOpen && item && (
@@ -31,7 +30,7 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
       >
         <motion.div
         className='outer-modal-container'
-        >
+        >asdsadskkkz
           <motion.div
           className='inner-modal-container'>
 
