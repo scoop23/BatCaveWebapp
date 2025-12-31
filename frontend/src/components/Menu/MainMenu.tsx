@@ -23,14 +23,14 @@ const containerVariants = {
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 2, y: 20 },
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
 }
 
 const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
   const [modal, setModal] = useState(false);
-
+  
   function toggleModal () {
     setModal(!modal);
   }
@@ -52,7 +52,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
       >
         <AnimatePresence mode="popLayout">
           {displayed.map((p: MenuItem) => (
-              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants}/>
+              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal}/>
           ))}
         </AnimatePresence>
       </motion.div>

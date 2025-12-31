@@ -6,14 +6,15 @@ import Image from 'next/image';
 type MenuItemCardProp = {
   item : MenuItem
   cardVariants : Variants
+  toggleModal : () => void
 }
 
-const MenuItemCard = ({ item , cardVariants} : MenuItemCardProp) => {
+const MenuItemCard = ({ item , cardVariants, toggleModal} : MenuItemCardProp) => {
   return (
     <motion.article
       layout
       key={item.title} // unique key
-      className="coffee-card group"
+      className="coffee-card group flex flex-col "
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -26,7 +27,10 @@ const MenuItemCard = ({ item , cardVariants} : MenuItemCardProp) => {
         height : "100%",
       }}
     >
-      <div className="media relative h-44 w-full overflow-hidden rounded-md">
+      <div className="media relative h-44 w-full overflow-hidden border-2 border-medium" style={{
+        borderTopLeftRadius : "12px",
+        borderTopRightRadius : "12px",
+      }}>
         {item?.image ? (
           <Image
             src={`/images/menufolder/${item.image}`}
@@ -46,15 +50,17 @@ const MenuItemCard = ({ item , cardVariants} : MenuItemCardProp) => {
         <div className="media-overlay" />
       </div>
 
-      <div className="card-content p-4" style={{
-        backgroundColor : "var(--color-coffee-medium)",
-        transition : "all 160ms ease"
-      }}>
-        <h4 className="text-base font-bold text-amber-50">{item.title ?? "Untitled"}</h4>
-        <p className="text-xs mt-1 text-gray-300 line-clamp-3">{item.description ?? ""}</p>
+      <div className="card-content p-4 flex flex-col flex-1 " style={{
+        transition : "all 160ms ease",
+        borderBottomRightRadius : "12px",
+        borderBottomLeftRadius : "12px",
+        backgroundColor : "var(--color-coffee-medium)"
+        }}>
+        <h4 className="text-base font-bold text-(--color-text)">{item.title ?? "Untitled"}</h4>
+        <p className="text-xs mt-1 line-clamp-3 text-(--color-text)">{item.description ?? ""}</p>
         <div className="mt-3 flex items-center justify-between">
           <span className="price-pill " style={{ color : "var(--color-text)" }}>{item.price ?? ""}</span>
-          <button className="btn-view cursor-pointer">View</button>
+          <button className="btn-view cursor-pointer text-(--color-text)" onClick={() => toggleModal()}>View</button>
         </div>
       </div>
     </motion.article>
