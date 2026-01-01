@@ -6,11 +6,12 @@ import Image from 'next/image';
 type MenuItemCardProp = {
   item : MenuItem
   cardVariants : Variants
-  toggleModal : () => void
-  isModalOpen : boolean
+  toggleModal : (item : MenuItem) => void
 }
 
-const MenuItemCard = ({ item , cardVariants, toggleModal, isModalOpen}  : MenuItemCardProp) => {
+const MenuItemCard = ({ item , cardVariants, toggleModal  }  : MenuItemCardProp) => {
+  
+
   return (
     <motion.article
       layout
@@ -28,7 +29,7 @@ const MenuItemCard = ({ item , cardVariants, toggleModal, isModalOpen}  : MenuIt
         height : "100%",
       }}
     >
-      <div className="media relative h-44 w-full overflow-hidden border-2 border-medium" style={{
+      <div className="media relative h-43 w-full overflow-hidden border-2 border-medium" style={{
         borderTopLeftRadius : "12px",
         borderTopRightRadius : "12px",
       }}>
@@ -37,6 +38,7 @@ const MenuItemCard = ({ item , cardVariants, toggleModal, isModalOpen}  : MenuIt
             src={`/images/menufolder/${item.image}`}
             alt={item.title ?? ""}
             fill
+            sizes='(max-width: 768px) 100vh'
             style={{ objectFit: "cover" }}
           />
         ) : (
@@ -61,7 +63,7 @@ const MenuItemCard = ({ item , cardVariants, toggleModal, isModalOpen}  : MenuIt
         <p className="text-xs mt-1 line-clamp-3 text-(--color-text)">{item.description ?? ""}</p>
         <div className="mt-3 flex items-center justify-between">
           <span className="price-pill " style={{ color : "var(--color-text)" }}>{item.price ?? ""}</span>
-          <button className="btn-view cursor-pointer text-(--color-text)" onClick={toggleModal}>View</button>
+          <button className="btn-view cursor-pointer text-(--color-text)" onClick={() => toggleModal(item)}>View</button>
         </div>
       </div>
     </motion.article>

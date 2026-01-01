@@ -28,11 +28,11 @@
           }}
           className="menu-inner-container md:flex-row"
         >
-          <div className="menu-sidebar h-full flex-shrink-0">
+          <div className="menu-sidebar h-full shrink-0">
             <MenuSideBar setFilter={setFilter} initial={undefined} />
           </div>
 
-          <div className="main-menu w-full max-w-[960px] flex-shrink-0 p-4">
+          <div className="main-menu w-full max-w-[960px] shrink-0 p-4">
             <MainMenu data={menuData} filter={filter} />
           </div>
         </Section>

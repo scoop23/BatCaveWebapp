@@ -11,12 +11,12 @@ export interface MenuItem {
 }
 
 interface MenuModalProps {
-  item : MenuItem
+  item : MenuItem | undefined
   isModalOpen : boolean
-  toggleModal : () => void
+  toggleModal : (item : MenuItem) => void
 }
 
-const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
+const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal}) => {
   if (typeof window === "undefined") return null;
   console.log(item)
   return createPortal(
@@ -27,10 +27,11 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen }) => {
       initial={{ opacity : 0 }}
       animate={{ opacity : 1 }}
       exit={{ opacity : 0 }}
+      onClick={() => toggleModal(item)}
       >
         <motion.div
         className='outer-modal-container'
-        >asdsadskkkz
+        >
           <motion.div
           className='inner-modal-container'>
 

@@ -30,13 +30,17 @@ const cardVariants = {
 
 const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
   const [modal, setModal] = useState(false);
-  
-  function toggleModal () {
+  const [selectedItem , setSelectedItem] = useState<MenuItem | undefined>(undefined);
+
+  function toggleModal (item: MenuItem) {
+    setSelectedItem(item);
     setModal(!modal);
+    console.log(selectedItem)
+    console.log(modal)
   }
 
   const items = data ?? menuData;
-  const displayed = useMemo(() => {
+  const displayed = useMemo(() => { // kinda like useEffect but changes the variable 'displayed' in real time based on the deps which is the [] in the 2nd argument of the useMemo callback.
     console.log(filter)
     if (!filter) return items; // if category is nothing default to 'all' category
     return items.filter((i: MenuItem) => capitalize(i.category) === filter);
@@ -50,13 +54,15 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
         initial="hidden"
         animate="visible"
       >
+        {/* playing with states */}
         <AnimatePresence mode="popLayout">
           {displayed.map((p: MenuItem) => (
-              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal} isModalOpen={modal}/>
+              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal}/>
           ))}
         </AnimatePresence>
+      <MenuModal isModalOpen={modal} item={selectedItem} toggleModal={toggleModal}/>
       </motion.div>
-
+      
       <style jsx>{`
         .main-menu-panel { color: #efe9e1; }
         .coffee-card { background: linear-gradient(180deg, rgba(18,16,15,0.55), rgba(12,12,12,0.6));

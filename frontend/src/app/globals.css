@@ -97,12 +97,11 @@ Cream/White (#fdfdf8) – clean contrast */
     /* Dark-mode coffee tones: deeper, richer browns */
     --color-silk-cream: #c9a07a; /* warm accent */
     --color-coffee-dark: #71402f; /* primary very dark coffee brown */ 
-    --color-coffee-medium: #3a1f15; /* secondary, buttons deep medium brown */
     --color-coffee-dark-wave: #3e2a1d;
     --color-white-choco: #f4efe9;
     --color-accent: #daa567; /* */
     --color-coffee-dark: #1b0f0d;    /* very deep coffee brown */
-    --color-coffee-medium: #caa77b;  /* amber remains for contrast */
+    --color-coffee-medium: #e0a255;  /* amber remains for contrast */
     --color-coffee-light: #2f1e1a;   /* subtle lighter coffee surface */
 
     /* about light */
