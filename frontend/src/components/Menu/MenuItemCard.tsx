@@ -38,7 +38,7 @@ const MenuItemCard = ({ item , cardVariants, toggleModal  }  : MenuItemCardProp)
             src={`/images/menufolder/${item.image}`}
             alt={item.title ?? ""}
             fill
-            sizes='(max-width: 768px) 100vh'
+            sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
             style={{ objectFit: "cover" }}
           />
         ) : (
