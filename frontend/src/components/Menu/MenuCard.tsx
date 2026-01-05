@@ -12,7 +12,7 @@ export interface MenuCardProps {
 const MenuCard: React.FC<MenuCardProps> = ({ cover, description, value }) => {
   return (
     <motion.div
-    className="menu-card relative flex-0 cursor-pointer w-[350px] h-[350px] overflow-hidden rounded-[20px] flex-none"
+    className="menu-card relative cursor-pointer w-[350px] h-[350px] overflow-hidden rounded-[20px] flex-0"
     style={{ boxShadow: "var(--shadow-custom)", border : "2px solid #783D18"}}
       initial={{ y: 0 }}
       whileHover={{ y: -5 }}

@@ -1,7 +1,8 @@
 import React from 'react'
-import { motion , AnimatePresence } from 'framer-motion';
+import { motion , AnimatePresence, Variants } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
+
 
 export interface MenuItem {
   category : string
@@ -15,9 +16,17 @@ interface MenuModalProps {
   item : MenuItem | undefined
   isModalOpen : boolean
   toggleModal : (item : MenuItem) => void
+  closeModal : () => void
 }
 
-const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal}) => {
+const childAnimations: Variants = {
+  "hidden" : { opacity : 0, x : -200},
+  "visible" : { opacity : 1, x : 0,
+    transition : { duration : 0.5 , ease : "easeInOut" }
+  },
+}
+
+const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal, closeModal}) => {
   if (typeof window === "undefined") return null;
   console.log(item)
   return createPortal(
@@ -28,14 +37,15 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal})
       initial={{ opacity : 0 }}
       animate={{ opacity : 1 }}
       exit={{ opacity : 0 }}
-      onClick={() => toggleModal(item)}
+      onClick={() => closeModal()}
       >
         <motion.div
         initial={{ opacity : 0, scale : 0.85 }}
         animate={{ opacity : 1, scale : 1 }}
         transition={{ ease : "easeInOut", duration : 0.5 }}
         exit={{ opacity : 0, scale : 0.85}}
-        className='outer-modal-container border border-white bg-white/20 h-3/5 w-3/6  flex items-center justify-center backdrop-blur-xs'
+        className='outer-modal-container border border-white bg-white/20 h-3/5 w-3/6  flex items-center justify-center backdrop-blur-sm'
+        onClick={(e) => e.stopPropagation()} 
         >
           <motion.div
             className="
@@ -59,16 +69,30 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal})
               />
             </div>
 
-            <div className="flex flex-col justify-between p-6 text-white">
-              <h2 className="text-xl font-bold">
-                {item.title}
-              </h2>
+            <div className="flex flex-col gap-3 p-6 text-white justify-between ">
+              <motion.div className='flex flex-col gap-2'>
+                <motion.div 
+                variants={childAnimations} 
+                initial={"hidden"}
+                animate={"visible"}
+                className='border border-white flex p-2 items-center'>
+                  <h2 className="text-xl font-bold">
+                    {item.title}
+                  </h2>
+                </motion.div>
 
-              <p className="mt-4 text-sm text-white/80">
-                {item.description}
-              </p>
+                <motion.div 
+                variants={childAnimations} 
+                initial={"hidden"}
+                animate={"visible"}
+                className='border border-white flex p-2 items-center'>
+                  <p className="text-sm text-white/80">
+                    {item.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident praesentium quas distinctio, quis eaque deleniti nulla reiciendis, placeat aspernatur molestiae nobis doloremque, maiores repellat. Ullam corporis voluptate consectetur reiciendis dolorum.
+                  </p>
+                </motion.div>
+              </motion.div>
 
-              <motion.div className='action-btns-with-price p-4 border border-white flex justify-between items-center'>
+              <motion.div className='action-btns-with-price p-4 border border-white flex justify-between items-center hover:bg-white/35 cursor-pointer'>
                 <span className="text-lg font-semibold">
                   {item.price}
                 </span>

@@ -34,9 +34,11 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
 
   function toggleModal (item: MenuItem) {
     setSelectedItem(item);
-    setModal(!modal);
-    console.log(selectedItem)
-    console.log(modal)
+    setModal(true);
+  }
+
+  function closeModal() {
+    setModal(false)
   }
 
   const items = data ?? menuData;
@@ -60,7 +62,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
               <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal}/>
           ))}
         </AnimatePresence>
-      <MenuModal isModalOpen={modal} item={selectedItem} toggleModal={toggleModal}/>
+      <MenuModal isModalOpen={modal} item={selectedItem} toggleModal={toggleModal} closeModal={closeModal}/>
       </motion.div>
       
       <style jsx>{`
