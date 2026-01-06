@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion , AnimatePresence, Variants } from 'framer-motion';
+import { motion , AnimatePresence, Variants, easeOut } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
@@ -18,11 +18,16 @@ interface MenuModalProps {
   toggleModal : (item : MenuItem) => void
   closeModal : () => void
 }
+const parentAnimation: Variants = {
+  "hidden" : { opacity : 0, scale : 0.85 },
+  "visible" : { opacity : 1, scale : 1, transition : { duration : 0.8 ,ease: "easeInOut", staggerChildren : 0.4},},
+  "exit" : { opacity : 0 }
+}
 
 const childAnimations: Variants = {
-  "hidden" : { opacity : 0, x : -200},
-  "visible" : { opacity : 1, x : 0,
-    transition : { duration : 0.5 , ease : "easeInOut" }
+  "hidden" : { opacity : 0, x : -50, scale : 0.90},
+  "visible" : { opacity : 1, x : 0, scale : 1,
+    transition : { duration : 0.5, type : "spring", stiffness : 200, damping : 50 }
   },
 }
 
@@ -42,7 +47,7 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal, 
         <motion.div
         initial={{ opacity : 0, scale : 0.85 }}
         animate={{ opacity : 1, scale : 1 }}
-        transition={{ ease : "easeInOut", duration : 0.5 }}
+        transition={{ ease : "easeOut", duration : 0.5 }}
         exit={{ opacity : 0, scale : 0.85}}
         className='outer-modal-container border border-white bg-white/20 h-3/5 w-3/6  flex items-center justify-center backdrop-blur-sm'
         onClick={(e) => e.stopPropagation()} 
@@ -70,11 +75,13 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal, 
             </div>
 
             <div className="flex flex-col gap-3 p-6 text-white justify-between ">
-              <motion.div className='flex flex-col gap-2'>
+              <motion.div className='flex flex-col gap-2'
+              variants={parentAnimation}
+              initial={"hidden"}
+              animate={"visible"}
+              exit={"exit"}>
                 <motion.div 
                 variants={childAnimations} 
-                initial={"hidden"}
-                animate={"visible"}
                 className='border border-white flex p-2 items-center'>
                   <h2 className="text-xl font-bold">
                     {item.title}
@@ -83,8 +90,6 @@ const MenuModal : React.FC<MenuModalProps> = ({ item, isModalOpen, toggleModal, 
 
                 <motion.div 
                 variants={childAnimations} 
-                initial={"hidden"}
-                animate={"visible"}
                 className='border border-white flex p-2 items-center'>
                   <p className="text-sm text-white/80">
                     {item.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident praesentium quas distinctio, quis eaque deleniti nulla reiciendis, placeat aspernatur molestiae nobis doloremque, maiores repellat. Ullam corporis voluptate consectetur reiciendis dolorum.
