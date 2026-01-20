@@ -6,3 +6,4 @@
   - apparantly you can't use hooks on server-side modes
     - the technique is to create components that have "use client" then call them on the server-side
   - server side is faster
+
