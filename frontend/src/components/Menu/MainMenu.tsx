@@ -8,7 +8,7 @@ import { useState } from "react"
 import MenuItemCard from "./MenuItemCard"
 
 interface MainMenuProps {
-  data?: any[] 
+  data?: any[]
   filter: string | null
 }
 
@@ -30,9 +30,9 @@ const cardVariants = {
 
 const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
   const [modal, setModal] = useState(false);
-  const [selectedItem , setSelectedItem] = useState<MenuItem | undefined>(undefined);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | undefined>(undefined);
 
-  function toggleModal (item: MenuItem) {
+  function toggleModal(item: MenuItem) {
     setSelectedItem(item);
     setModal(true);
   }
@@ -48,6 +48,11 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
     return items.filter((i: MenuItem) => capitalize(i.category) === filter);
   }, [items, filter]);
 
+  function capitalize(s?: string) {
+    if (!s) return ""
+    return s.replace(/\b\w/g, (l) => l.toUpperCase())
+  }
+
   return (
     <div className="main-menu-panel">
       <motion.div
@@ -59,12 +64,12 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
         {/* playing with states */}
         <AnimatePresence mode="popLayout">
           {displayed.map((p: MenuItem) => (
-              <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal}/>
+            <MenuItemCard key={p.title} item={p} cardVariants={cardVariants} toggleModal={toggleModal} />
           ))}
         </AnimatePresence>
-      <MenuModal isModalOpen={modal} item={selectedItem} toggleModal={toggleModal} closeModal={closeModal}/>
+        <MenuModal isModalOpen={modal} item={selectedItem} toggleModal={toggleModal} closeModal={closeModal} />
       </motion.div>
-      
+
       <style jsx>{`
         .main-menu-panel { color: #efe9e1; }
         .coffee-card { background: linear-gradient(180deg, rgba(18,16,15,0.55), rgba(12,12,12,0.6));
@@ -86,9 +91,6 @@ const MainMenu: React.FC<MainMenuProps> = ({ data, filter }) => {
   )
 }
 
-function capitalize(s?: string) {
-  if (!s) return ""
-  return s.replace(/\b\w/g, (l) => l.toUpperCase())
-}
+
 
 export default MainMenu;

@@ -23,16 +23,16 @@ dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 
 const normalizeTime = (time: string) => {
-  return time.length === 8 ? time.slice(0,5) : time; // "HH:mm:ss" => "HH:mm"
+  return time.length === 8 ? time.slice(0, 5) : time; // "HH:mm:ss" => "HH:mm"
 }
 
-export function withinOperatingHours(start: string, end: string, openTime: string, closeTime: string) : boolean{
+export function withinOperatingHours(start: string, end: string, openTime: string, closeTime: string): boolean {
   const startTime = dayjs(`2000-01-01T${start}`);
   const endTime = dayjs(`2000-01-01T${end}`);
   const open = dayjs(`2000-01-01T${openTime}`);
   const close = dayjs(`2000-01-01T${closeTime}`);
   if (endTime <= startTime) return false;
- 
+
   return startTime.isSameOrAfter(open) && endTime.isSameOrBefore(close);
 }
 
@@ -63,13 +63,13 @@ export function reservationOverlap(startA: string, endA: string, startB: string,
 }
 
 // room
-const initialDummyRoomsFromDatabase : Room[] = [
-  {id : "ROOM1" , name : "Study Room" , capacity : 20, reservation : []}
+const initialDummyRoomsFromDatabase: Room[] = [
+  { id: "ROOM1", name: "Study Room", capacity: 20, reservation: [] }
 ]
-  
+
 const AvailableRooms = () => {
-  const [timeNow , setTimeNow] = useState(dayjs().format("DD:MM:HH:mm:ss"));
-  const [room , setRoom] = useState(initialDummyRoomsFromDatabase);
+  const [timeNow, setTimeNow] = useState(dayjs().format("DD:MM:HH:mm:ss"));
+  const [room, setRoom] = useState(initialDummyRoomsFromDatabase);
   // const [reservations , setReservations] = useState(room[0].reservation);  
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const AvailableRooms = () => {
       const roomResponse = await apiGet("/rooms");
       const reservationResponse = await apiGet("/reservations");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const formattedReservations : Reservations[] = reservationResponse?.data.map((r : any, i : number) => ({
+      const formattedReservations: Reservations[] = reservationResponse?.data.map((r: any, i: number) => ({
         roomId: r.room_id,
         userId: r.user_id,
         date: r.date,
@@ -94,13 +94,13 @@ const AvailableRooms = () => {
         room_name: r.room_name,
       }))
 
-      const roomsWithReservations = roomResponse?.data.map((room : Room) => ({
+      const roomsWithReservations = roomResponse?.data.map((room: Room) => ({
         ...room,
-        reservation : formattedReservations.filter((r : Reservations) => r.roomId === room.id)
+        reservation: formattedReservations.filter((r: Reservations) => r.roomId === room.id)
       }));
 
 
-      
+
       console.log(roomsWithReservations);
       setRoom(roomsWithReservations)
     }
@@ -110,81 +110,83 @@ const AvailableRooms = () => {
   }, [])
 
   // this is what the user inputted
-  async function onReserve(roomId : string, r : Omit<Reservations , 'id'>) {
+  async function onReserve(roomId: string, r: Omit<Reservations, 'id'>) {
     const currentRoom = room.find(room => roomId === room.id);
     // r is if the user inputted something r is the object and omit is remove the id 
     let totalPaxAfterReservation: number | undefined;
     console.log(r)
-    if(!currentRoom) {
-      return { success : false , message : "Room not found in database"}
+    if (!currentRoom) {
+      return { success: false, message: "Room not found in database" }
     }
     console.log(r.start)
+
     const opStart = '13:00' // 1pm start of operation hours
     const opEnd = '22:00' // 10pm end of operation hours
-    
+
     // first check if its within operating hours
-    if(!withinOperatingHours(r.start , r.end, opStart, opEnd)) {
-      return { success : false , message : "Time Needs to be within 1pm to 10pm" }
+    if (!withinOperatingHours(r.start, r.end, opStart, opEnd)) {
+      return { success: false, message: "Time Needs to be within 1pm to 10pm" }
     }
-    
+
     // then check if the exisisting reservations overlapped with the current reservation input 
     // if same day and overlapping time
-    const overlapping = currentRoom.reservation.filter((existingReservation , i) => {
-      if(existingReservation.date === r.date && reservationOverlap(existingReservation.start, existingReservation.end , r.start , r.end)) {
+    const overlapping = currentRoom.reservation.filter((existingReservation) => {
+      if (existingReservation.date === r.date && reservationOverlap(existingReservation.start, existingReservation.end, r.start, r.end)) {
         // if true
         return true; // returns the original values that passed the conditional statement
       }
       return false
     })
-    
-    if(r.type === RoomType.Study) {
-      const overlappingfunction = overlapping.filter(o => o.type === RoomType.Function) 
-      if (overlappingfunction.length > 0 ) return {success : false , message : "Can't reserve during a function"}
+
+    if (r.type === RoomType.Study) {
+      const overlappingfunction = overlapping.filter(o => o.type === RoomType.Function)
+      if (overlappingfunction.length > 0) return { success: false, message: "Can't reserve during a function" }
 
       const overlappingStudy = currentRoom.reservation.filter(
-        o => o.type === RoomType.Study && reservationOverlap(o.start , o.end , r.start, r.end) && o.date === r.date
+        o => o.type === RoomType.Study && reservationOverlap(o.start, o.end, r.start, r.end) && o.date === r.date
       ) // o is each of the study times that will overlap the input user
-      
+
 
       const totalPax = overlappingStudy.reduce((sum, current) => sum + current.pax, 0)
       // const totalPax = overlapping
       // .filter(o => o.type === "study")
       // .reduce((sum , current) => sum + current.pax , 0) + r.pax
       // sum up all the reservations overlapping with type study and add the input pax
-      if(totalPax + r.pax > currentRoom.capacity) {
-        return { 
-          success : false  , 
-          message : `Pax exceed maximum limit / change the pax ${totalPax + r.pax} which is beyond the limit`}
+      if (totalPax + r.pax > currentRoom.capacity) {
+        return {
+          success: false,
+          message: `Pax exceed maximum limit / change the pax ${totalPax + r.pax} which is beyond the limit`
+        }
       }
 
       totalPaxAfterReservation = totalPax + r.pax;
       console.log("Total Pax after reservation: " + totalPaxAfterReservation);
-    }  else if (r.type === RoomType.Function) {
-  // check for overlapping Function
-  const overlappingFunction = currentRoom.reservation.filter((res) =>
-    res.type === RoomType.Function &&
-    res.date === r.date &&
-    reservationOverlap(r.start, r.end, res.start, res.end)
-  );
+    } else if (r.type === RoomType.Function) {
+      // check for overlapping Function
+      const overlappingFunction = currentRoom.reservation.filter((res) =>
+        res.type === RoomType.Function &&
+        res.date === r.date &&
+        reservationOverlap(r.start, r.end, res.start, res.end)
+      );
 
-  if (overlappingFunction.length > 0) {
-    return { success: false, message: "Your Function Reservation Will Overlap with Function Schedules on that Date." }
-  }
+      if (overlappingFunction.length > 0) {
+        return { success: false, message: "Your Function Reservation Will Overlap with Function Schedules on that Date." }
+      }
 
-  // check for overlapping Study (because Functions are exclusive)
-  const overlappingStudy = currentRoom.reservation.filter((res) =>
-    res.type === RoomType.Study &&
-    res.date === r.date &&
-    reservationOverlap(r.start, r.end, res.start, res.end)
-  );
+      // check for overlapping Study (because Functions are exclusive)
+      const overlappingStudy = currentRoom.reservation.filter((res) =>
+        res.type === RoomType.Study &&
+        res.date === r.date &&
+        reservationOverlap(r.start, r.end, res.start, res.end)
+      );
 
-  if (overlappingStudy.length > 0) {
-    return { success: false, message: "Can't reserve a Function during an existing Study reservation" }
-  }
-}
+      if (overlappingStudy.length > 0) {
+        return { success: false, message: "Can't reserve a Function during an existing Study reservation" }
+      }
+    }
 
     // if no problems, create new reservation
-    const newReservation = {id : `R#${Date.now() * 100}`, ...r}
+    const newReservation = { id: `R#${Date.now() * 100}`, ...r }
     // // frontend data
     // setReservations([...currentRoom.reservation , newReservation])
     // setRoom(prev => // get the roooms
@@ -202,29 +204,29 @@ const AvailableRooms = () => {
 
     // if successful return the reservation ID
     // object that we will send to the user
-    return { 
-      success : true, 
-      message : "Reserved Successfully", 
-      reservationId : newReservation.id, 
-      newReservation : newReservation, 
-      totalPax : totalPaxAfterReservation
+    return {
+      success: true,
+      message: "Reserved Successfully",
+      reservationId: newReservation.id,
+      newReservation: newReservation,
+      totalPax: totalPaxAfterReservation
     }
-     // and a popup or something
+    // and a popup or something
   }
 
-  
+
 
   return (
     <Section isAnimated={false}>
       <AnimatePresence>
-          <div className='available-rooms flex flex-col items-center gap-2 my-8'>
-              { 
-              // room is from the database
-                room.map((r , i) => (
-                  <RoomCard room={r} key={i} onReserve={onReserve}/>
-                ))
-              }
-          </div>
+        <div className='available-rooms flex flex-col items-center gap-2 my-8'>
+          {
+            // room is from the database
+            room.map((r, i) => (
+              <RoomCard room={r} key={i} onReserve={onReserve} />
+            ))
+          }
+        </div>
       </AnimatePresence>
     </Section>
   )
